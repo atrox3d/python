@@ -9,11 +9,14 @@ For more information, please visit https://pyperclip.readthedocs.io/en/latest/in
 
 for the sake of the exercise this module simulates the behaviour via a texfile
 """
-def copy():
-	print("copy")
+def copy(clipboard):
+	with open("clipboard.txt", "w") as f:
+		f.write(clipboard)
 
 def paste():
-	print("paste")
+	with open("clipboard.txt", "r") as f:
+		print(f.read())
+	
 	
 if __name__ == '__main__':
 	print("you shoul import this file")

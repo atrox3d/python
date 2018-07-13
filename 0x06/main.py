@@ -11,6 +11,6 @@ print("[{}] first test".format(Path(sys.argv[0]).name))
 #help(pyperclip)
 print(pyperclip.__doc__)
 
-pyperclip.copy()
+pyperclip.copy("hello")
 pyperclip.paste()
 
