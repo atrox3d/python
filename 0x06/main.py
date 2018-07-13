@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
-import fakeclip
+from fakepyperclip import fakepyperclip as pyperclip
 
 print("first test")
 
-fakeclip.copy()
-fakeclip.paste()
+help(pyperclip)
+
+pyperclip.copy()
+pyperclip.paste()
 
