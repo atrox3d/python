@@ -3,4 +3,6 @@ import fakeclip
 
 print("first test")
 
+fakeclip.copy()
+fakeclip.paste()
 
