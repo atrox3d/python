@@ -39,7 +39,7 @@ def paste():
 	else:
 		log.debug("%s pasted succesfully", clipboard)
 		return True
-	
-	
+
+
 if __name__ == '__main__':
 	log.warning("you should import this file")
