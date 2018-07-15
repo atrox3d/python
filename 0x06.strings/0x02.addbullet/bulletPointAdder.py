@@ -18,6 +18,24 @@ log=logging.getLogger(__name__)
 sys.path.append("..") # Adds higher directory to python modules path
 from lib.fakepyperclip import fakepyperclip as pyperclip
 
+##############################
+# simulate external copy
+if len(sys.argv) > 1:
+	# from cli
+	log.debug("argv's len: %s", len(sys.argv))
+	log.debug(sys.argv)
+	
+	lines=sys.argv[1:]
+	log.debug(lines)
+	pyperclip.copy('\n'.join(lines))
+else:
+	# default
+	pyperclip.copy('Lists of animals\nLists of aquarium life\nLists of biologists by author abbreviation\nLists of cultivars')
+
+##############################
+
+
+
 text = pyperclip.paste()
 if text != None:
 	log.info("ok")
