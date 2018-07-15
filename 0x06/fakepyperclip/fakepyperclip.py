@@ -38,4 +38,4 @@ def paste():
 	
 	
 if __name__ == '__main__':
-	print("you shoul import this file")
+	log.warning("you shoul import this file")
