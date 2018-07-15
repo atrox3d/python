@@ -16,7 +16,7 @@ log=logging.getLogger(__name__)
 #
 # just to try the complete syntax
 sys.path.append("..") # Adds higher directory to python modules path
-from fakepyperclip import fakepyperclip as pyperclip
+from lib.fakepyperclip import fakepyperclip as pyperclip
 #
 log.debug("welcome to %s", __file__)
 #

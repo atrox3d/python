@@ -28,7 +28,7 @@ def copy(clipboard):
 
 #
 def paste():
-	log.debug("copying %s", clipboard)
+	log.debug("pasting clipboard")
 
 	try:
 		with open("clipboard.txt", "r") as f:

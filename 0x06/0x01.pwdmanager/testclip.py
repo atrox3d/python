@@ -4,7 +4,8 @@ import sys
 from pathlib import Path 
 
 # just to try the complete syntax
-from fakepyperclip import fakepyperclip as pyperclip
+sys.path.append("..") # Adds higher directory to python modules path
+from lib.fakepyperclip import fakepyperclip as pyperclip
 
 logging.basicConfig(
     #filename="test.log",
