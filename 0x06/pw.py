@@ -2,20 +2,20 @@
 #
 # pw.py - An insecure password locker program.
 #
-# just to try the complete syntax
-from fakepyperclip import fakepyperclip as pyperclip
-#
 import sys
 import logging
 #
 logging.basicConfig(
 	level=logging.DEBUG,
 	#format="[%(asctime)s][%(module)s][%(name)s][%(levelname)-6s] - %(message)s",
-	format="[%(asctime)s][%(module)-15s][%(levelname)-6s] - %(message)s",
-	datefmt='%Y/%m/%d|%H:%M:%S'
+	format="%(asctime)s %(module)-15s %(levelname)-10s : %(message)s",
+	datefmt='%Y/%m/%d %H:%M:%S'
 	)
 #
-log=logging.getLogger("main")
+log=logging.getLogger(__name__)
+#
+# just to try the complete syntax
+from fakepyperclip import fakepyperclip as pyperclip
 #
 log.debug("welcome to %s", __file__)
 #
@@ -32,8 +32,10 @@ PASSWORDS = {
 			}
 
 if account in PASSWORDS:
-	pyperclip.copy(PASSWORDS[account])
-	log.info( "password for %s copied to clipboard", account )
+	if pyperclip.copy(PASSWORDS[account]):
+		log.info( "password for %s copied to clipboard", account )
+	else:
+		log.fatal("something went wrong")
 else:
 	log.error("No account %s found", account)
 	sys.exit(2)

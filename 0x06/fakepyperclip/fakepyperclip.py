@@ -11,7 +11,7 @@ for the sake of the exercise this module simulates the behaviour via a texfile
 """
 import logging
 
-log=logging.getLogger("pyperclip")
+log=logging.getLogger(__name__)
 #
 def copy(clipboard):
 	log.debug("copying %s", clipboard)
@@ -19,10 +19,12 @@ def copy(clipboard):
 	try:
 		with open("clipboard.txt", "w") as f:
 			f.write(clipboard)
-	except IOError:
-		log.error("error saving clipboard to file")
+	except IOError as e:
+		log.fatal("error saving clipboard to file: %s", e)
+		return False
 	else:
 		log.debug("%s copied succesfully", clipboard)
+		return True
 
 #
 def paste():
@@ -31,10 +33,12 @@ def paste():
 	try:
 		with open("clipboard.txt", "r") as f:
 			print(f.read())
-	except IOError:
-		log.error("error reading clipboard from file")
+	except IOError as e:
+		log.fatal("error reading clipboard from file: %s", e)
+		return False
 	else:
 		log.debug("%s pasted succesfully", clipboard)
+		return True
 	
 	
 if __name__ == '__main__':
