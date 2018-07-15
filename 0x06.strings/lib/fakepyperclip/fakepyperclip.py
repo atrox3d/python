@@ -34,11 +34,15 @@ def paste():
 		with open("clipboard.txt", "r") as f:
 			return(f.read())
 	except IOError as e:
-		log.fatal("error reading clipboard from file: %s", e)
-		return False
+		if e.errno == 2:
+			log.warning("clipboard.txt not initialized, returning \"\"")
+			return ""
+		else:
+			log.fatal("error reading clipboard from file: %s", e)
+			return None
 	else:
 		log.debug("%s pasted succesfully", clipboard)
-		return True
+		return clipboard
 
 
 if __name__ == '__main__':
