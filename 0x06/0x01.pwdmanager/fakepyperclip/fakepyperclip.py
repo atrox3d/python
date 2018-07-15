@@ -32,7 +32,7 @@ def paste():
 
 	try:
 		with open("clipboard.txt", "r") as f:
-			print(f.read())
+			return(f.read())
 	except IOError as e:
 		log.fatal("error reading clipboard from file: %s", e)
 		return False
