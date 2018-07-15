@@ -36,7 +36,8 @@ if account in PASSWORDS:
 		log.info( "password for %s copied to clipboard", account )
 	else:
 		log.fatal("something went wrong")
+		sys.exit(2)
 else:
 	log.error("No account %s found", account)
-	sys.exit(2)
+	sys.exit(3)
 
