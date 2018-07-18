@@ -14,16 +14,16 @@ import logging
 log=logging.getLogger(__name__)
 #
 def copy(clipboard):
-	log.debug("copying %s", clipboard)
+	log.debug("clipboard : copying %s", repr(clipboard))
 	
 	try:
 		with open("clipboard.txt", "w") as f:
 			f.write(clipboard)
 	except IOError as e:
-		log.fatal("error saving clipboard to file: %s", e)
+		log.fatal("clipboard : error saving clipboard to file: %s", e)
 		return False
 	else:
-		log.debug("%s copied succesfully", clipboard)
+		log.debug("clipboard : %s copied succesfully", repr(clipboard))
 		return True
 
 #
