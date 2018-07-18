@@ -57,10 +57,16 @@ text = pyperclip.paste()
 # check if we have something
 #
 if text != None:
-	log.info("ok")
+	log.debug("ok, pasted text: %s", repr(text))
 	#
 	# ok, we have data
 	#
+	lines = text.split('\n')
+	log.debug("lines   : %s", lines)
+	for i in (range(len(lines))):
+		lines[i] = '* ' + lines[i]
+		
+	pyperclip.copy('\n'.join(lines))
 else:
 	#
 	# no data from clipboard, exit
