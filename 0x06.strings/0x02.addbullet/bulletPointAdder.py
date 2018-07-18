@@ -15,7 +15,8 @@ logging.basicConfig(
 #
 log=logging.getLogger(__name__)
 
-sys.path.append("..") # Adds higher directory to python modules path
+# using a symbolic link to ../lib now
+#sys.path.append("..") # Adds higher directory to python modules path
 from lib.fakepyperclip import fakepyperclip as pyperclip
 
 ##############################
