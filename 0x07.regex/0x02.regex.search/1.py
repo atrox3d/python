@@ -38,7 +38,10 @@ for i in range(len(mo.groups())+1):
 # multi assignment
 #
 a, b, c = mo.groups()
-print( "a={}, b={}, c={}".format( a, b, c ))
+#
+#	keyword formatting
+#
+print( "a={}, b={}, c={c}".format( a, b, c=c ))
 #
 #	print result
 #
