@@ -30,13 +30,15 @@ def logvar(name):
 def debugvar(name, printdir=False):
 	for k in globals():
 		if id(name) == id(globals()[k]):
+			log.debug("%-20.20s: [%-5.5s] %s", k, "-" * 5 , "-" * 50)
 			log.debug("%-20.20s: [%-5.5s] %s", k, "VALUE", globals()[k])
 			log.debug("%-20.20s: [%-5.5s] %s", k, "STR",   str (globals()[k]))
 			log.debug("%-20.20s: [%-5.5s] %s", k, "TYPE",  type(globals()[k]))
 			log.debug("%-20.20s: [%-5.5s] %s", k, "REPR",  repr(globals()[k]))
 			if printdir:
 				for d in dir (globals()[k]):
-					log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",  d )
+					if not d.startswith('__'):
+						log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",  d )
 			break
 	else:
 		log.error("%-20.20s: %s", name, "UNDEFINED")
@@ -59,6 +61,7 @@ debugvar(phoneNumberRegex)
 #	search text against regex
 #
 mo = phoneNumberRegex.search('My number is 415-555-4242.')
+debugvar(mo, True)
 #
 #	two different string interpolation methods
 #
