@@ -1,5 +1,13 @@
 #!/usr/bin/env python3
-
+import logging
+#
+logging.basicConfig(
+	level=logging.DEBUG,
+	format="%(asctime)s %(module)-15s %(levelname)-10s : %(message)s",
+	datefmt='%Y/%m/%d %H:%M:%S'
+	)
+#
+log=logging.getLogger(__name__) 
 #
 #	import regex package
 #
@@ -10,7 +18,10 @@ import re
 #	r'string' : raw string (no escape interpretation, otherwise \\d)
 #
 regex = r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)'
+log.debug("regex	: %s" % regex)
+#
 phoneNumberRegex =  re.compile(regex)
+#print("phoneNumberRegex
 #
 #	search text against regex
 #
