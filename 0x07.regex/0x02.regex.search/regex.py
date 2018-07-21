@@ -27,14 +27,16 @@ def logvar(name):
 #
 #	compare var address (id) to print name and info
 #
-def debugvar(name):
+def debugvar(name, printdir=False):
 	for k in globals():
 		if id(name) == id(globals()[k]):
 			log.debug("%-20.20s: [%-5.5s] %s", k, "VALUE", globals()[k])
 			log.debug("%-20.20s: [%-5.5s] %s", k, "STR",   str (globals()[k]))
 			log.debug("%-20.20s: [%-5.5s] %s", k, "TYPE",  type(globals()[k]))
 			log.debug("%-20.20s: [%-5.5s] %s", k, "REPR",  repr(globals()[k]))
-			log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",   dir (globals()[k]))
+			if printdir:
+				for d in dir (globals()[k]):
+					log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",  d )
 			break
 	else:
 		log.error("%-20.20s: %s", name, "UNDEFINED")
