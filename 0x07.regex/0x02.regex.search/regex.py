@@ -67,7 +67,8 @@ debugvar(mo, True)
 #
 #	two different string interpolation methods
 #
-print("mo.group    %s" % mo.group())
+#print("mo.group    %s" % mo.group())
+log.debug("mo.group    %s" % mo.group())
 print("mo.group    {}".format(mo.group()))
 #
 #	print tuple
