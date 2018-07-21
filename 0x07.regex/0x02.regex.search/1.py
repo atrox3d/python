@@ -9,7 +9,8 @@ import re
 #
 #	r'string' : raw string (no escape interpretation, otherwise \\d)
 #
-phoneNumberRegex =  re.compile(r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)')
+regex = r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)'
+phoneNumberRegex =  re.compile(regex)
 #
 #	search text against regex
 #
