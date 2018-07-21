@@ -36,9 +36,11 @@ def debugvar(name, printdir=False):
 			log.debug("%-20.20s: [%-5.5s] %s", k, "TYPE",  type(globals()[k]))
 			log.debug("%-20.20s: [%-5.5s] %s", k, "REPR",  repr(globals()[k]))
 			if printdir:
+				log.debug("%-20.20s: [%-5.5s] %s", k, "-" * 5 , "{")
 				for d in dir (globals()[k]):
 					if not d.startswith('__'):
-						log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",  d )
+						log.debug("%-20.20s: [%-5.5s] 		%s", k, "DIR",  d )
+				log.debug("%-20.20s: [%-5.5s] %s", k, "-" * 5 , "}")
 			break
 	else:
 		log.error("%-20.20s: %s", name, "UNDEFINED")
@@ -56,7 +58,7 @@ regex = r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)'
 debugvar(regex)
 #
 phoneNumberRegex =  re.compile(regex)
-debugvar(phoneNumberRegex)
+debugvar(phoneNumberRegex, True)
 #
 #	search text against regex
 #
