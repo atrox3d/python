@@ -8,6 +8,37 @@ logging.basicConfig(
 	)
 #
 log=logging.getLogger(__name__) 
+
+#
+#	logvar (experimental)
+#
+#	compare var address (id) to print name and value
+#
+def logvar(name):
+	for k in globals():
+		if id(name) == id(globals()[k]):
+			log.debug("%-20.20s: %s", k, globals()[k])
+			break
+	else:
+		log.error("%-20.20s: %s", name, "UNDEFINED")
+
+#
+#	debugvar (experimental)
+#
+#	compare var address (id) to print name and info
+#
+def debugvar(name):
+	for k in globals():
+		if id(name) == id(globals()[k]):
+			log.debug("%-20.20s: [%-5.5s] %s", k, "VALUE", globals()[k])
+			log.debug("%-20.20s: [%-5.5s] %s", k, "STR",   str (globals()[k]))
+			log.debug("%-20.20s: [%-5.5s] %s", k, "TYPE",  type(globals()[k]))
+			log.debug("%-20.20s: [%-5.5s] %s", k, "REPR",  repr(globals()[k]))
+			log.debug("%-20.20s: [%-5.5s] %s", k, "DIR",   dir (globals()[k]))
+			break
+	else:
+		log.error("%-20.20s: %s", name, "UNDEFINED")
+
 #
 #	import regex package
 #
@@ -18,10 +49,10 @@ import re
 #	r'string' : raw string (no escape interpretation, otherwise \\d)
 #
 regex = r'(\d\d\d)-(\d\d\d)-(\d\d\d\d)'
-log.debug("regex	: %s" % regex)
+debugvar(regex)
 #
 phoneNumberRegex =  re.compile(regex)
-#print("phoneNumberRegex
+debugvar(phoneNumberRegex)
 #
 #	search text against regex
 #
