@@ -20,7 +20,7 @@ pwd = os.getcwd()
 #
 #	using literal string interpolation (f-strings) to create variable width format
 #
-width=25
+width=50
 format=f'%-{width}.{width}s : %s'
 #
 #	some infos
@@ -37,4 +37,30 @@ log.info(format, "current working directory", pwd)
 #
 relpath=os.path.relpath(pwd)
 log.info(format, "relative working directory", relpath)
+#
+#	absolute path
+#
+abspath=os.path.abspath(sys.argv[0])
+log.info(format, "absolute script path", abspath)
+#
+#	split
+#
+path, scriptname = os.path.split(abspath)
+log.info(format, "absolute script path", path)
+log.info(format, "script name", scriptname)
+#
+#	let's gather some stats
+#
+path='..'
+for filename in os.listdir(path):
+	currfile=os.path.abspath(os.path.join(path, filename))
+	currsize=os.path.getsize(currfile)
+	log.info("%-*.*s : %d", width, width, currfile, currsize)
+	#log.info("%-*.*s ", width, width, filename)
+	#filesize=os.path.getsize(filename)
+	
+	
+
+	
+
 
