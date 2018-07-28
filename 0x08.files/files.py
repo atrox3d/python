@@ -34,4 +34,19 @@ print(filelines)
 
 thisfile.seek(0)
 for line in thisfile:
-	log.info(line.rstrip())
+	log.info(format, os.path.basename(scriptname), line.rstrip())
+#
+#
+#
+anotherfile=open("anotherfile", 'w')
+anotherfile.write("write and close\n")
+anotherfile.close()
+
+anotherfile=open("anotherfile", 'a')
+anotherfile.write("append and close\n")
+anotherfile.close()
+
+anotherfile=open("anotherfile")
+for line in anotherfile:
+	log.info(format, os.path.basename(anotherfile.name), line.rstrip())
+	
