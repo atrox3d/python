@@ -54,10 +54,14 @@ log.info(format, "script name", scriptname)
 path='..'
 for filename in os.listdir(path):
 	currfile=os.path.abspath(os.path.join(path, filename))
-	currsize=os.path.getsize(currfile)
-	log.info("%-*.*s : %d", width, width, currfile, currsize)
-	#log.info("%-*.*s ", width, width, filename)
-	#filesize=os.path.getsize(filename)
+	if os.path.exists(currfile):
+		if os.path.isdir(currfile):
+			log.info("%-*.*s : %s", width, width, currfile, "DIR")
+		else
+			currsize=os.path.getsize(currfile)
+			log.info("%-*.*s : %d", width, width, currfile, currsize)
+	else
+		log.error(format, "path non found", currfile)
 	
 	
 
