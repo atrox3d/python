@@ -12,11 +12,12 @@ log=logging.getLogger(__name__)
 
 pwd = os.getcwd()
 width=25
-log.info("%-*.*s : %s", width, width, "current working directory", pwd)
-log.info("%-*.*s : %s", width, width, "filename", sys.argv[0])
+format=f'%-{width}.{width}s : %s'
+log.info(format, "current working directory", pwd)
+log.info(format, "filename", sys.argv[0])
 
 os.chdir(pwd)
-log.info("%-*.*s : %s", width, width, "current working directory", pwd)
+log.info(format, "current working directory", pwd)
 
 relpath=os.path.relpath(pwd)
-log.info("%-*.*s : %s", width, width, "relative working directory", relpath)
+log.info(format, "relative working directory", relpath)
