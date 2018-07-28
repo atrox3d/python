@@ -57,10 +57,10 @@ for filename in os.listdir(path):
 	if os.path.exists(currfile):
 		if os.path.isdir(currfile):
 			log.info("%-*.*s : %s", width, width, currfile, "DIR")
-		else
+		else:
 			currsize=os.path.getsize(currfile)
 			log.info("%-*.*s : %d", width, width, currfile, currsize)
-	else
+	else:
 		log.error(format, "path non found", currfile)
 	
 	
