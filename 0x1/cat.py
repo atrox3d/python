@@ -48,7 +48,7 @@ def catfile(fp, linenumbers=False, filename=False):
 	linenumber=0						#	let's start
 	format=""							#	ready to create the format
 	if filename:	format+="%s :"		#	+ filename format char
-	if linenumbers: format+="%d :"		#	+ linenumber format char
+	if linenumbers: format+="%4d :"		#	+ linenumber format char
 	
 	format+="%s"						#	+ line format char
 	
