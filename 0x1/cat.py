@@ -78,7 +78,9 @@ for file in files:						# loop over files list
 	try:								#	let's try to 
 		with open(file) as fp:			#		open file
 			catfile(fp, **options)		#	call catfile with keyword arguments **expansion
-	except Exception as err:			#	intercept ANY error
+	except (KeyboardInterrupt) as err:			#	intercept ANY error
+		sys.exit(1)
+	except (Exception) as err:			#	intercept ANY error
 		print( "error with file %s : %s" % (file, err) )
 		sys.exit(1)
 		
