@@ -2,19 +2,19 @@
 import sys
 savestdout=sys.stdout
 
-print("usage: %s 2>/dev/null" % sys.argv[0])
+print("usage: %s [2>/dev/null]\n\n" % sys.argv[0])
 
-print("this is stdout")
+print("%s: this is stdout" % sys.stdout.name)
 sys.stdout = sys.stderr
-print("is this stderr?")
+print("%s: stderr: is this stderr?"  % sys.stdout.name)
 stdoutid=id(sys.stdout)
 stderrid=id(sys.stderr)
-print("stdoutid: %s" % stderrid)
-print("stderrid: %s" % stdoutid)
-print("stdoutid == stderrid : %s" % (stdoutid == stderrid))
+print("%s: %s" % ( sys.stdout.name, stderrid ))
+print("%s: %s" % ( sys.stdout.name, stdoutid ))
+print("%s: stdoutid == stderrid : %s" % (sys.stdout.name, stdoutid == stderrid))
 
 sys.stdout=savestdout
-print("back to stdout")
+print("%s: back to stdout" % sys.stdout.name)
 
 
 
