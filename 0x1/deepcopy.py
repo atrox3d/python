@@ -96,4 +96,18 @@ list2[2][1] = 'd'
 loglists()
 log.warn("sub list has changed in list1")
 log.info("------------------------------------------------------------------------")
+log.info("NOW, USING DEEPCOPY:")
+log.info("------------------------------------------------------------------------")
+
+from copy import deepcopy
+
+log.info( "init list1 (sublist)" )
+list1 = ['a','b',['ab','ba']]
+log.info( "list2 = deepcopy(list1)" )
+list2 = deepcopy(list1)
+log.info( "change sub list2[*]" )
+list2[2][1] = "d"
+list2[0] = "c"
+loglists()
+
 
