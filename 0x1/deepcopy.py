@@ -23,6 +23,9 @@ def logcolors():
 def loglists():
 	log.info("list1     : %s" % list1)
 	log.info("list2     : %s" % list2)
+	log.info("id(list1) : %s" % id(list1))
+	log.info("id(list2) : %s" % id(list2))
+	log.info("same id : %s" % (id(list1) == id(list2)))
 	log.info("------------------------------------------------------------------------")
 
 def logvars():
@@ -65,7 +68,32 @@ colours2[1] = "green"
 logcolors()
 
 
+log.info( "init list1" )
 list1 = ['a','b','c','d']
+log.info( "list2 = list1[:]" )
 list2 = list1[:]
+log.info( "change list2[1]" )
 list2[1] = 'x'
 loglists()
+
+
+log.info( "init list1 (sublist)" )
+list1 = ['a','b',['ab','ba']]
+log.info( "list2 = list1[:]" )
+list2 = list1[:]
+loglists()
+
+log.info( "init list1 (sublist)" )
+list1 = ['a','b',['ab','ba']]
+log.info( "list2 = list1[:]" )
+list2 = list1[:]
+log.info( "change list2[0]" )
+list2[0] = 'c'
+loglists()
+
+log.info( "change sub list2[2][1]" )
+list2[2][1] = 'd'
+loglists()
+log.warn("sub list has changed in list1")
+log.info("------------------------------------------------------------------------")
+
