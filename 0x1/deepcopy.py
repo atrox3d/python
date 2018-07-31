@@ -2,45 +2,70 @@
 #
 #	https://www.python-course.eu/python3_deep_copy.php
 #
+import logging
+#
+logging.basicConfig(
+	level=logging.INFO,
+	format="%(asctime)s | %(module)-15s | %(levelname)-10s | %(message)s",
+	datefmt='%Y/%m/%d %H:%M:%S'
+	)
+#
+log=logging.getLogger(__name__) 
+
+def logcolors():
+	log.info("colours1     : %s" % colours1)
+	log.info("colours2     : %s" % colours2)
+	log.info("id(colours1) : %s" % id(colours1))
+	log.info("id(colours2) : %s" % id(colours2))
+	log.info("same id      : %s" % (id(colours1) == id(colours2)))
+	log.info("------------------------------------------------------------------------")
+
+def loglists():
+	log.info("list1     : %s" % list1)
+	log.info("list2     : %s" % list2)
+	log.info("------------------------------------------------------------------------")
+
+def logvars():
+	log.info("%s      : %s" % ("x", x))
+	log.info("%s      : %s" % ("y", y))
+	log.info("id(%s)  : %s" % ("x", id(x)))
+	log.info("id(%s)  : %s" % ("x", id(y)))
+	log.info("same id : %s" % (id(x) == id(y)))
+	log.info("------------------------------------------------------------------------")
+	
+
+log.info( "START" )
+log.info( "x=3" )
 x=3
+log.info( "y=x" )
 y=x
-print(id(x), id(y))
-print(x,y)
+logvars()
 
+log.info( "y=4" )
 y=4
-print(id(x), id(y))
-print(x,y)
+logvars()
 
-def printcolors():
-	print("colours1     : %s" % colours1)
-	print("colours2     : %s" % colours2)
-	print("id(colours1) : %s" % id(colours1))
-	print("id(colours2) : %s" % id(colours2))
-	print("same id      : %s" % (id(colours1) == id(colours2)))
-	print()
-
-def printlists():
-	print("list1     : %s" % list1)
-	print("list2     : %s" % list2)
-	print()
-
+log.info( "init colours1" )
 colours1 = ['red', "blue"]
 colours2 = colours1
-printcolors()
+log.info( "colours2 = colours1" )
+logcolors()
 
+log.info( "change colours2" )
 colours2 = ["rouge", "vert"]
-printcolors()
+logcolors()
 
 #
+log.info( "colours2 = colours1" )
 colours2 = colours1
-printcolors()
+logcolors()
 
+log.info( "change colours2[1]" )
 colours2[1] = "green"
-printcolors()
+logcolors()
 
-print ("------------------------------------------------------------------------")
 
 list1 = ['a','b','c','d']
 list2 = list1[:]
 list2[1] = 'x'
-printlists()
+loglists()
