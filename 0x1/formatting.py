@@ -11,7 +11,14 @@ logging.basicConfig(
 log = logging.getLogger(__name__) 
 
 log.info("start")
-floats = [ x * random.random() for x in range(0, 100, 5) ]
-for f in floats:
-	log.info("%%6.2f	: %6.2f", f )
 
+floats = [ x * random.random() for x in range(0, 50, 5) ]
+for f in floats:
+	log.info("%-6s %%6.2f	: %6.2f", "float", f )
+
+log.info("%-6s %%-6x	: %-6x", "hex", 42 )
+log.info("%-6s %%-#6x	: %-#6x", "hex", 42 )
+log.info("%-6s %%#6x	: %#6x", "hex", 42 )
+log.info("%-6s %%#6x	: %#6x", "hex", 42 )
+log.info("%-6s %%#6X	: %#6X", "hex", 42 )
+log.info("%-6s %%#6.6x	: %#6.6x", "hex", 42 )
