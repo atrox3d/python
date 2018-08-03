@@ -19,7 +19,7 @@ def logbanner( message, linewidth=50, logfunc=log.info,  ):
 	logfunc(getline())
 
 logbanner(
-	"FLOATS",
+	"stdformat:FLOATS",
 	#logfunc=log.debug
 )
 
@@ -28,7 +28,7 @@ for f in floats:
 	log.info("%-6s %%6.2f	: %6.2f", "float", f )
 
 logbanner(
-	"HEX",
+	"stdformat:HEX",
 	#logfunc=log.debug
 )
 
@@ -40,4 +40,39 @@ log.info("%-*s %%#6x	: %#6x"  , width, "hex", 42 )
 log.info("%-*s %%#6x	: %#6x"  , width, "hex", 42 )
 log.info("%-*s %%#6X	: %#6X"  , width, "hex", 42 )
 log.info("%-*s %%#6.6x	: %#6.6x", width, "hex", 42 )
-log.info(getline())
+
+
+logbanner(
+	"newformat:STRINGS",
+	#logfunc=log.debug
+)
+log.info("{}".format("{}"))
+log.info("{0}".format("{0}"))
+
+log.info("{:s}".format("{:s}"))
+log.info("{0:s}".format("{0:s}"))
+
+log.info("{:20s}".format("{:20s}"))
+log.info("{0:20s}".format("{0:20s}"))
+
+log.info("{:<20.20s}".format("{:20.20s}"))
+log.info("{0:<20.20s}".format("{0:20.20s}"))
+
+log.info("{:.<20.20s}".format("{:.<20.20s}"))
+log.info("{0:.<20.20s}".format("{0:.<20.20s}"))
+
+log.info("{:.>20.20s}".format("{:.>20.20s}"))
+log.info("{0:.>20.20s}".format("{0:.>20.20s}"))
+
+log.info("{:.^20.20s}".format("{:.^20.20s}"))
+log.info("{0:.^20.20s}".format("{0:.^20.20s}"))
+
+
+logbanner(
+	"newformat:DICT",
+	#logfunc=log.debug
+)
+log.info("{first}, {second}".format(first="{first}", second="{second}"))
+
+dic={'first' : "{first}", 'second' : "{second}"}
+log.info("{first}, {second}".format(**dic))
