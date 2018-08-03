@@ -48,5 +48,19 @@ def f():
 f()
 log.info("globvar	: %s", globvar)
 
+logbanner("variable number of param")
+def fx( positional, *args ):
+	log.info("positional	: %s", positional)
+	jargs=",".join((str(arg) for arg in args))
+	log.info("args	: %s", jargs)
+	
+targs=(1,2,3,4)
+largs=[1,2,3,4]
+
+fx(0, targs)
+fx(0, largs)
+fx(0, *targs)
+fx(0, *largs)
+
 
 
