@@ -102,10 +102,11 @@ for ip, provincia, device in stats:
 		if provincia in report[ip].keys():
 			if device not in report[ip][provincia]:
 				report[ip][provincia].append(device)
+		else:
+			report[ip][provincia] = device
 	else:
-		report[ip] = { provincia : [device]}
+		report[ip] = { provincia : [device] }
 		
-
 
 for ip, rec in report.items():
 	for provincia in rec.keys():
