@@ -10,7 +10,7 @@ log = logging.getLogger(__name__)
 #
 #
 #
-netflixlog=open('netflix.log')							# open log file
+netflixlog=open('private/netflix.log')							# open log file
 
 header=netflixlog.readline()							# read header
 log.info(header.rstrip())								# displaye header
