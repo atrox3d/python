@@ -70,14 +70,18 @@ for line in netflixlog:									# loop over file: read line
 			record['ip'] = ip
 			record['device'] = device
 			log.debug(record)
-			for k, v in record.items():
-				log.info("%-15s : %s", k, v)
 		#################################################
 		# join buffer into whole line
 		#################################################
 		joinchar=" | "									# join char
 		wholeline = joinchar.join(buffer)				# join line
-		log.info(wholeline)								# display whole line
+		
+		if fields:
+			for k, v in record.items():
+				log.info("%-15s : %s", k, v)
+		else:
+			log.info(wholeline)								# display whole line
+			
 		buffer=[]										# reinitialize buffer
 		record={}										# reinitialize buffer
 	else:
