@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import logging
+import logging, re
 #
 logging.basicConfig(
 	level=logging.INFO,
@@ -31,8 +31,13 @@ for line in netflixlog:									# loop over file: read line
 	elif linemod == 2:									# get last  group: ip devicename
 		log.debug("[%d]	%s", linemod, line)
 		
+		#################################################
 		# regex (ip.address)\s+(.+)
+		#################################################
 		
+		#################################################
+		# join buffer into whole line
+		#################################################
 		joinchar=" | "									# join char
 		wholeline = joinchar.join(buffer)				# join line
 		log.info(wholeline)								# display whole line
