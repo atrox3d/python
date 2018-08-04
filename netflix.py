@@ -32,6 +32,7 @@ lineno=-1												# init counter
 buffer=[]												# init temp buffer
 record={}
 fields=()
+stats=set()
 for line in netflixlog:									# loop over file: read line
 	line = line.rstrip()								# get rid of \n
 	lineno += 1											# count lines
@@ -70,6 +71,13 @@ for line in netflixlog:									# loop over file: read line
 			record['ip'] = ip
 			record['device'] = device
 			log.debug(record)
+			stats.add( 
+						(
+								record['ip'], 
+								record['provincia'], 
+								record['device']
+							) 
+						)
 		#################################################
 		# join buffer into whole line
 		#################################################
@@ -88,4 +96,24 @@ for line in netflixlog:									# loop over file: read line
 		log.error("[%d]	%s", linemod, line)
 		continue
 
+report={}
+for ip, provincia, device in stats:
+	if ip in report.keys():
+		if provincia in report[ip].keys():
+			if device not in report[ip][provincia]:
+				report[ip][provincia].append(device)
+	else:
+		report[ip] = { provincia : [device]}
+		
 
+
+for ip, rec in report.items():
+	for provincia in rec.keys():
+		log.info("%18s, %s, %s", ip, provincia, rec[provincia])
+		pass
+		
+		
+		
+		
+		
+		
