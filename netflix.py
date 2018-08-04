@@ -46,6 +46,9 @@ for line in netflixlog:									# loop over file: read line
 		if fields:
 			data, ora, fuso = fields
 			log.debug("data: %s, ora: %s, fuso: %s", data, ora, fuso)
+			record['data'] = data
+			record['ora'] = ora
+			record['fuso'] = fuso
 		
 	elif linemod == 1:									# get 2nd   group: location
 		
@@ -54,6 +57,8 @@ for line in netflixlog:									# loop over file: read line
 		if fields:
 			nazione, provincia= fields
 			log.debug("nazione: %s, provincia: %s", nazione, provincia)
+			record['nazione'] = nazione
+			record['provincia'] = provincia
 		
 	elif linemod == 2:									# get last  group: ip devicename
 		
@@ -62,7 +67,11 @@ for line in netflixlog:									# loop over file: read line
 		if fields:
 			ip, device= fields
 			log.debug("ip: %s, device: %s", ip, device)
-		
+			record['ip'] = ip
+			record['device'] = device
+			log.debug(record)
+			for k, v in record.items():
+				log.info("%-15s : %s", k, v)
 		#################################################
 		# join buffer into whole line
 		#################################################
