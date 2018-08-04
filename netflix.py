@@ -10,6 +10,19 @@ log = logging.getLogger(__name__)
 #
 #
 #
+
+def regexline(regex,line):
+	chunkregex = re.compile(regex)
+	mo = chunkregex.search(line)
+	if mo:
+		log.debug("mo.group    %s", mo.group())
+		log.debug("mo.groups   %s", mo.groups())
+		return mo.groups()
+	else:
+		log.error("no mo.group for '%s' in '%s'", regex, line)
+
+
+
 netflixlog=open('private/netflix.log')							# open log file
 
 header=netflixlog.readline()							# read header
@@ -17,23 +30,38 @@ log.info(header.rstrip())								# displaye header
 
 lineno=-1												# init counter
 buffer=[]												# init temp buffer
-
+record={}
+fields=()
 for line in netflixlog:									# loop over file: read line
 	line = line.rstrip()								# get rid of \n
 	lineno += 1											# count lines
 	linemod=lineno%3									# count groups of 3 lines
 	buffer.append(line)									# add to line buffer
-	
+	#log.debug("[%d]	%s", linemod, line)
 	if   linemod == 0:									# get 1st   group: date/time
-		pass
-	elif linemod == 1:									# get 2nd   group: location
-		pass
-	elif linemod == 2:									# get last  group: ip devicename
-		log.debug("[%d]	%s", linemod, line)
 		
-		#################################################
-		# regex (ip.address)\s+(.+)
-		#################################################
+		regex=r"(\d\d/\d\d/\d\d),\s+(\d\d:\d\d:\d\d)\s+(GMT\+1)"
+		data = ora = fuso = None
+		fields = regexline(regex, line)
+		if fields:
+			data, ora, fuso = fields
+			log.debug("data: %s, ora: %s, fuso: %s", data, ora, fuso)
+		
+	elif linemod == 1:									# get 2nd   group: location
+		
+		regex=r"(Italia)\s+\(([A-Z]+)\)"
+		fields = regexline(regex, line)
+		if fields:
+			nazione, provincia= fields
+			log.debug("nazione: %s, provincia: %s", nazione, provincia)
+		
+	elif linemod == 2:									# get last  group: ip devicename
+		
+		regex=r"(\d+\.\d+\.\d+\.\d+)\s+(.+)"
+		fields = regexline(regex, line)
+		if fields:
+			ip, device= fields
+			log.debug("ip: %s, device: %s", ip, device)
 		
 		#################################################
 		# join buffer into whole line
@@ -42,7 +70,9 @@ for line in netflixlog:									# loop over file: read line
 		wholeline = joinchar.join(buffer)				# join line
 		log.info(wholeline)								# display whole line
 		buffer=[]										# reinitialize buffer
+		record={}										# reinitialize buffer
 	else:
 		log.error("[%d]	%s", linemod, line)
+		continue
 
 
