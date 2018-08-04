@@ -107,7 +107,9 @@ for ip, provincia, device in stats:
 	else:
 		report[ip] = { provincia : [device] }
 		
-
+for ip in sorted(report.keys()):
+	print(ip)
+	
 for ip, rec in report.items():
 	for provincia in rec.keys():
 		log.info("%18s, %s, %s", ip, provincia, rec[provincia])
