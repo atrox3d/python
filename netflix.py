@@ -75,7 +75,8 @@ for line in netflixlog:									# loop over file: read line
 						(
 								record['ip'], 
 								record['provincia'], 
-								record['device']
+								record['device'],
+								record['data']
 							) 
 						)
 		#################################################
@@ -97,7 +98,7 @@ for line in netflixlog:									# loop over file: read line
 		continue
 
 report={}
-for ip, provincia, device in stats:
+for ip, provincia, device, data in stats:
 	if ip in report.keys():
 		if provincia in report[ip].keys():
 			if device not in report[ip][provincia]:
@@ -106,13 +107,15 @@ for ip, provincia, device in stats:
 			report[ip][provincia] = device
 	else:
 		report[ip] = { provincia : [device] }
-		
+
+print("-" * 80 )
+print( "%18s, %-10s, %s" % ("ip address", "provincia", "dispositivi") )
+print("-" * 80 )
 for ip in sorted(report.keys()):
-	print(ip)
-	
-for ip, rec in report.items():
+	rec = report[ip]
 	for provincia in rec.keys():
-		log.info("%18s, %s, %s", ip, provincia, rec[provincia])
+		log.debug("%18s, %s, %s", ip, provincia, rec[provincia])
+		print("%18s, %-10s, %s" % ( ip, provincia, rec[provincia]))
 		pass
 		
 		
