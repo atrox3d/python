@@ -114,4 +114,14 @@ def normaldecorator(function):
 decorated=normaldecorator(tobedecorated)
 decorated()
 
+print("################################################################################")
+print("#                                                                              #")
+print("#    python  @decorator syntax                                                 #")
+print("#                                                                              #")
+print("################################################################################")
 
+@normaldecorator
+def justedecorateme():
+	"hello, being decorated now"
+
+justedecorateme()
