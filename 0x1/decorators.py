@@ -193,3 +193,5 @@ normalfunction("Hi")
 runtimedecorator = parametric("parametric-param")
 decoratednormalfunction = runtimedecorator(normalfunction)
 decoratednormalfunction("hi from decoratednormalfunction")
+
+
