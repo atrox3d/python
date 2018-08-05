@@ -125,3 +125,45 @@ def justedecorateme():
 	print("hello, being decorated now")
 
 justedecorateme()
+
+print("################################################################################")
+print("#                                                                              #")
+print("#    decorator with *args                                                      #")
+print("#                                                                              #")
+print("################################################################################")
+
+def generaldecorator(function):
+	def functionwrapper(*args, **kwargs):
+		print("functionwrapper: pre %s call" % function.__name__)
+		function(*args, **kwargs)
+		print("functionwrapper: post %s call" % function.__name__)
+	
+	return functionwrapper
+	
+@generaldecorator
+def noargs():	print("noargs")
+noargs()
+
+@generaldecorator
+def onearg(arg):	print("onearg	: %s" % arg)
+onearg("argument")
+
+@generaldecorator
+def oneargandlist(arg, *args):	print("oneargandlist	: %s, %s" % (arg, *args))
+oneargandlist("argument", [ 1, 2, 3 ] )
+
+@generaldecorator
+def someargs(*args):	print("someargs	: %s" % [str(arg) for arg in args])
+someargs(1,2,3,4)
+
+@generaldecorator
+def onlykwargs(**kwargs):	print("onlykwargs	: %s" % kwargs)
+onlykwargs(one=1, two=2)
+
+@generaldecorator
+def everything(arg, *args, **kwargs):	print("everything	: %s, %s, %s" % (arg, args, kwargs))
+
+everything("arg", "args1", "args2", one=1, two=2)
+everything("arg", [ "args1", "args2" ], one=1, two=2)
+
+
