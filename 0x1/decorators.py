@@ -166,4 +166,30 @@ def everything(arg, *args, **kwargs):	print("everything	: %s, %s, %s" % (arg, ar
 everything("arg", "args1", "args2", one=1, two=2)
 everything("arg", [ "args1", "args2" ], one=1, two=2)
 
+print("################################################################################")
+print("#                                                                              #")
+print("#    parametric decorator                                                      #")
+print("#                                                                              #")
+print("################################################################################")
 
+def parametric(decoratorparameter):
+    def functiondecorator(function):
+        def function_wrapper(functionparameter):
+            print("functionwrapper::decoratorparameter : %s" % decoratorparameter)
+            print("functionwrapper::functionparameter  : %s" % functionparameter)
+            print("functionwrapper::calling            : %s(%s)" % (function.__name__, functionparameter))
+            function(functionparameter)
+        return function_wrapper
+    return functiondecorator
+
+# @syntax
+@parametric("0xWhatever")
+def normalfunction(x):
+    print(x)
+
+normalfunction("Hi")
+
+# non-@ syntax
+runtimedecorator = parametric("parametric-param")
+decoratednormalfunction = runtimedecorator(normalfunction)
+decoratednormalfunction("hi from decoratednormalfunction")
