@@ -79,9 +79,10 @@ g()
 
 print("################################################################################")
 print("#                                                                              #")
-print("#    decorators                                                                #")
+print("#    simple decorator                                                          #")
 print("#                                                                              #")
 print("################################################################################")
+
 def simpledecorator(function):
     print( "simpledecorator : decorating function                       : %s" % function.__name__ )
     print( "simpledecorator : doing something before calling function   : %s" % function.__name__ )
@@ -89,11 +90,28 @@ def simpledecorator(function):
     function()
     print( "simpledecorator : end decoration after function             : %s" % function.__name__ )
 
-def decorated():
-    print("this is dcorated function, yay")
+def tobedecorated():
+    print("this is decorated function, yay")
 
-simpledecorator(decorated)
+simpledecorator(tobedecorated)
 
+print("################################################################################")
+print("#                                                                              #")
+print("#    normal decorator                                                          #")
+print("#                                                                              #")
+print("################################################################################")
 
+def normaldecorator(function):
+	print( "normaldecorator	:	passing %s to functionwrapper" % function.__name__ )
+	
+	def functionwrapper():
+		print( "normaldecorator::functionwrapper : calling %s" % function.__name__ )
+		function()
+		print( "normaldecorator::functionwrapper :  %s called" % function.__name__ )
+	
+	return functionwrapper
+
+decorated=normaldecorator(tobedecorated)
+decorated()
 
 
