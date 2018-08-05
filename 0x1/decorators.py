@@ -122,6 +122,6 @@ print("#########################################################################
 
 @normaldecorator
 def justedecorateme():
-	"hello, being decorated now"
+	print("hello, being decorated now")
 
 justedecorateme()
