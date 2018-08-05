@@ -7,9 +7,11 @@ logging.basicConfig(
 	datefmt='%Y/%m/%d %H:%M:%S'
 	)
 log = logging.getLogger(__name__) 
-#
-#	passing function as arguments
-#
+print("################################################################################")
+print("#                                                                              #")
+print("#    passing function as arguments                                             #")
+print("#                                                                              #")
+print("################################################################################")
 def functioncaller(f):
 	print("calling " + f.__name__)
 	f()
@@ -29,4 +31,52 @@ fx = [ f1, f2, f3, f4 ]
 #
 for f in fx:
 	functioncaller(f)
+print("################################################################################")
+print("#                                                                              #")
+print("#    returning functions                                                       #")
+print("#                                                                              #")
+print("################################################################################")
+def external(extparam):
+
+	def otherinternal():
+		print("otherinternal here")
+	#
+	#	define ad internal function
+	#	extparam is "saved" into internal scope
+	#
+	externalscopevar = "scope:externalscopevar"
+	def internal(
+					intparam, 								# will be passed when calling internal
+					extargument=extparam					# another way to persist
+		):
+		#
+		#	extparam value is accessed from internal scope
+		#	externalscopevar is accessed from internal scope
+		#	extargument saves extparam in a local variable
+		#
+		print( "externalscopevar : ", externalscopevar )
+		print( "str(extparam)    : ", str(extparam)    )
+		print( "extargument      : ", extargument      )
+		print( "str(intparam)    : ", str(intparam)    )
+		
+		otherinternal()
+	#
+	#	return the function
+	#
+	return internal, otherinternal
+	
+
+try:
+	internal()
+except Exception as e:
+	print(e)
+
+f, g =external("external param")
+print("f.__name__       : ", f.__name__)
+
+f("internal param")
+g()
+
+
+
 
