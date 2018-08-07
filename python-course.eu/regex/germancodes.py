@@ -9,3 +9,9 @@ with urlopen(url) as gc:						# 	open online resource
 	charset=gc.info().get_content_charset()     #	get charset
 	for line in gc:                             #	loop over content
 		print(line.decode(charset).rstrip())    #	decode every line
+
+with open('german.population.txt') as gp:		# 	open online resource
+	#charset=gc.info().get_content_charset()     #	get charset
+	for line in gp:                             #	loop over content
+		print(line.rstrip())    				#	decode every line
+
