@@ -6,7 +6,7 @@ import logging
 import sys
 #
 logging.basicConfig(
-	level	= 	logging.DEBUG,
+	level	= 	logging.INFO,
 	format	= 	"%(asctime)s | " + 
 				#"%(module)-15s | " + 
 				#"%(name)-10s:%(funcName)-10s | " + 
@@ -24,7 +24,7 @@ with urlopen(url) as gc:							# 	open online resource
 	charset=gc.info().get_content_charset()     	#	get charset
 	
 	citycodes = {}									#	codes dict
-	
+	cities = set()
 	for line in gc:                             	#	loop over content
 		log.debug(
 					"%s : %s",
@@ -61,13 +61,48 @@ with urlopen(url) as gc:							# 	open online resource
 				citycodes[city].add(postcode)
 			else:
 				citycodes[city] = {postcode}
+				
+			cities.add(city)
+		else:
+			log.warning("regexp FAIL")
+			log.warning(line.decode(charset).rstrip())
 
+				
+			
 localfile='german.population.txt'				
-with open(localfile) as gp:							# 	open data file
+with open(localfile, encoding="utf-8") as gp:							# 	open data file
 	for line in gp:                             	#	loop over content
 		log.debug(
 					"%s : %s",
 					localfile,
 					line.rstrip()					
 				)
+
+		mo = re.search(
+						r'''
+						^[0-9]{1,2}\.
+						\s+
+						([\w\s-]+\w)
+						\s+
+						[0-9]
+						
+						'''
+					,
+					line.rstrip(),
+					re.VERBOSE
+				)
+
+		if mo: 
+			log.debug("'%s', %s", mo.group(), mo.groups())
+			city=mo.groups(1)
+			
+			if city in citycodes:
+				print(city, citycodes[city])
+			#else:
+			#	log.error("city %s not found", city)
+			if city in cities:
+				log.info("%s found in cities", city)
+			else:
+				log.warning("%s not found in cities", city)
+			
 
