@@ -18,13 +18,16 @@ logging.basicConfig(
 #
 log = logging.getLogger(__name__) 
 
-url='https://www.python-course.eu/post_codes_germany.txt'
-urlfile =  url.split('/')[-1]
+localfile	= 'post_codes_germany.txt'
+url			= 'https://www.python-course.eu/post_codes_germany.txt'
+urlfile		=  url.split('/')[-1]
 with urlopen(url) as gc:							# 	open online resource
 	charset=gc.info().get_content_charset()     	#	get charset
 	
 	citycodes = {}									#	codes dict
-	cities = set()
+	#logging.getLogger().getEffectiveLevel()
+	if log.getEffectiveLevel() == logging.DEBUG:
+		cities = set()
 	for line in gc:                             	#	loop over content
 		log.debug(
 					"%s : %s",
@@ -45,9 +48,9 @@ with urlopen(url) as gc:							# 	open online resource
 						r'''
 						[\d ]+
 						# ([^\d]+[a-z])"			# fails with german chars
-						([^\d\s]+)
+						([^\d\s]+)					# city
 						\s+
-						(\d+)
+						(\d+)						# postcode
 						'''
 					,
 					line.decode(charset).rstrip(),
@@ -57,19 +60,23 @@ with urlopen(url) as gc:							# 	open online resource
 		if mo: 
 			log.debug("'%s', %s", mo.group(), mo.groups())
 			city, postcode = mo.groups()
+			log.debug("city = [%-20.20s], postcode=[%s]", city, postcode)
 			if city in citycodes:
+				log.debug("[%-20.20s] found in city codes", city)
 				citycodes[city].add(postcode)
 			else:
+				log.debug("[%-20.20s] NOT found in citycodes, adding ", city)
 				citycodes[city] = {postcode}
 				
-			cities.add(city)
+			if log.getEffectiveLevel() == logging.DEBUG:
+				cities.add(city)
 		else:
 			log.warning("regexp FAIL")
 			log.warning(line.decode(charset).rstrip())
 
 				
 			
-localfile='german.population.txt'				
+localfile	= 'german.population.txt'				
 with open(localfile, encoding="utf-8") as gp:							# 	open data file
 	for line in gp:                             	#	loop over content
 		log.debug(
@@ -94,15 +101,18 @@ with open(localfile, encoding="utf-8") as gp:							# 	open data file
 
 		if mo: 
 			log.debug("'%s', %s", mo.group(), mo.groups())
-			city=mo.groups(1)
-			
+			city=mo.group(1)
+			log.debug("city = [%s]", city)
 			if city in citycodes:
+				log.debug("[%-20.20s] found", city)
 				print(city, citycodes[city])
-			#else:
-			#	log.error("city %s not found", city)
-			if city in cities:
-				log.info("%s found in cities", city)
 			else:
-				log.warning("%s not found in cities", city)
+				log.warning("[%-20.20s] NOT found", city)
+
+			if log.getEffectiveLevel() == logging.DEBUG:
+				if city in cities:
+					log.debug("[%-20.20s] found in cities", city)
+				else:
+					log.warning("[%-20.20s] NOT found in cities", city)
 			
 
