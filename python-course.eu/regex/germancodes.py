@@ -31,14 +31,27 @@ with urlopen(url) as gc:							# 	open online resource
 					urlfile,
 					line.decode(charset).rstrip()	#	decode every line
 				)
+		#mo = re.search(
+		#				r"[\d ]+"
+		#			#+	r"([^\d]+[a-z])"			# fails with german chars
+		#			+	r"([^\d\s]+)"
+		#			+	r"\s+"
+		#			+	r"(\d+)"
+		#			,
+		#			line.decode(charset).rstrip()
+		#		)
+				
 		mo = re.search(
-						r"[\d ]+"
-					#+	r"([^\d]+[a-z])"			# fails with german chars
-					+	r"([^\d\s]+)"
-					+	r"\s+"
-					+	r"(\d+)"
+						r'''
+						[\d ]+
+						# ([^\d]+[a-z])"			# fails with german chars
+						([^\d\s]+)
+						\s+
+						(\d+)
+						'''
 					,
-					line.decode(charset).rstrip()
+					line.decode(charset).rstrip(),
+					re.VERBOSE
 				)
 				
 		if mo: 
