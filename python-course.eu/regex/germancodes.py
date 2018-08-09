@@ -22,17 +22,17 @@ url			= 'https://www.python-course.eu/post_codes_germany.txt'
 urlfile		= url.split('/')[-1]
 #
 with urlopen(url) as gc:							# 	open online resource
-	charset=gc.info().get_content_charset()     	#	get charset
-	
-	citycodes = {}									#	codes dict
-	if log.getEffectiveLevel() == logging.DEBUG:
-		cities = set()								#
+	charset		= gc.info().get_content_charset()	#	get charset
+	citycodes	= {}								#	codes dict
 
-		for line in gc:                             	#	loop over content
+	for line in gc:                             	#	loop over content
+	
+		line = line.decode(charset).rstrip()		# decode and remove \n
+	
 		log.debug(
 					"%s : %s",
 					urlfile,
-					line.decode(charset).rstrip()	#	decode every line
+					line							#	decode every line
 				)
 				
 		mo = re.search(
@@ -44,12 +44,13 @@ with urlopen(url) as gc:							# 	open online resource
 						(\d+)						# postcode
 						'''
 					,
-					line.decode(charset).rstrip(),
+					line,
 					re.VERBOSE
 				)
 				
 		if mo: 
 			log.debug("'%s', %s", mo.group(), mo.groups())
+			
 			city, postcode = mo.groups()
 			log.debug("city = [%-20.20s], postcode=[%s]", city, postcode)
 
@@ -60,15 +61,13 @@ with urlopen(url) as gc:							# 	open online resource
 				log.debug("[%-20.20s] NOT found in citycodes, adding ", city)
 				citycodes[city] = {postcode}
 				
-			if log.getEffectiveLevel() == logging.DEBUG:
-				cities.add(city)
 		else:
 			log.warning("regexp FAIL")
-			log.warning(line.decode(charset).rstrip())
+			log.warning(line)
 
-				
-			
-localfile	= 'german.population.txt'				
+
+localfile	= 'german.population.txt'
+
 with open(localfile, encoding="utf-8") as gp:		# 	open data file
 	for line in gp:                             	#	loop over content
 		log.debug(
@@ -95,16 +94,10 @@ with open(localfile, encoding="utf-8") as gp:		# 	open data file
 			log.debug("'%s', %s", mo.group(), mo.groups())
 			city=mo.group(1)
 			log.debug("city = [%s]", city)
+
 			if city in citycodes:
 				log.debug("[%-20.20s] found", city)
 				print(city, citycodes[city])
 			else:
 				log.warning("[%-20.20s] NOT found", city)
-
-			if log.getEffectiveLevel() == logging.DEBUG:
-				if city in cities:
-					log.debug("[%-20.20s] found in cities", city)
-				else:
-					log.warning("[%-20.20s] NOT found in cities", city)
-			
 
