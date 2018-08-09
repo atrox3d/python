@@ -97,7 +97,8 @@ with open(localfile, encoding="utf-8") as gp:		# 	open data file
 
 			if city in citycodes:
 				log.debug("[%-20.20s] found", city)
-				print(city, citycodes[city])
+				print("[%s]" % city)
+				print(citycodes[city])
 			else:
 				log.warning("[%-20.20s] NOT found", city)
 
