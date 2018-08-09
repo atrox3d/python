@@ -17,32 +17,23 @@ logging.basicConfig(
 	)
 #
 log = logging.getLogger(__name__) 
-
-localfile	= 'post_codes_germany.txt'
+#
 url			= 'https://www.python-course.eu/post_codes_germany.txt'
-urlfile		=  url.split('/')[-1]
+urlfile		= url.split('/')[-1]
+#
 with urlopen(url) as gc:							# 	open online resource
 	charset=gc.info().get_content_charset()     	#	get charset
 	
 	citycodes = {}									#	codes dict
-	#logging.getLogger().getEffectiveLevel()
 	if log.getEffectiveLevel() == logging.DEBUG:
-		cities = set()
-	for line in gc:                             	#	loop over content
+		cities = set()								#
+
+		for line in gc:                             	#	loop over content
 		log.debug(
 					"%s : %s",
 					urlfile,
 					line.decode(charset).rstrip()	#	decode every line
 				)
-		#mo = re.search(
-		#				r"[\d ]+"
-		#			#+	r"([^\d]+[a-z])"			# fails with german chars
-		#			+	r"([^\d\s]+)"
-		#			+	r"\s+"
-		#			+	r"(\d+)"
-		#			,
-		#			line.decode(charset).rstrip()
-		#		)
 				
 		mo = re.search(
 						r'''
@@ -61,6 +52,7 @@ with urlopen(url) as gc:							# 	open online resource
 			log.debug("'%s', %s", mo.group(), mo.groups())
 			city, postcode = mo.groups()
 			log.debug("city = [%-20.20s], postcode=[%s]", city, postcode)
+
 			if city in citycodes:
 				log.debug("[%-20.20s] found in city codes", city)
 				citycodes[city].add(postcode)
@@ -77,7 +69,7 @@ with urlopen(url) as gc:							# 	open online resource
 				
 			
 localfile	= 'german.population.txt'				
-with open(localfile, encoding="utf-8") as gp:							# 	open data file
+with open(localfile, encoding="utf-8") as gp:		# 	open data file
 	for line in gp:                             	#	loop over content
 		log.debug(
 					"%s : %s",
@@ -89,7 +81,7 @@ with open(localfile, encoding="utf-8") as gp:							# 	open data file
 						r'''
 						^[0-9]{1,2}\.
 						\s+
-						([\w\s-]+\w)
+						([\w\s-]+\w)				#	city name
 						\s+
 						[0-9]
 						
