@@ -81,18 +81,23 @@ if __name__ == "__main__":
 	#del loopbuffer
 	#reload(gen)
 	#loopbuffer=gen.loopbuffer
-	lp=loopbuffer("abc")
+	lp=loopbuffer("efg")
 	
 	for n in range(4):
 	
-		log.info("--> call next()")
-		c = next(lp)
-		log.info( "[%-20.20s] '%s'", "next()",	c)
-		log.info("--> call next()")
+		log.debug("--> call next()")
 		c = next(lp)
 		log.info( "[%-20.20s] '%s'", "next()",	c)
 		
-		log.info("--> call send()")
-		lp.send({"init":"blue"})
-		log.info( "[%-20.20s] '%s'", "send()",	c)
+		log.debug("--> call next()")
+		c = next(lp)
+		log.info( "[%-20.20s] '%s'", "next()",	c)
+		
+		log.debug("--> call next()")
+		c = next(lp)
+		log.info( "[%-20.20s] '%s'", "next()",	c)
+
+		log.debug("--> call send('{init:blue')")
+		c = lp.send({"init":"blue"})
+		log.info( "[%-20.20s] '%s'", "send({init:blue})",	c)
 		
