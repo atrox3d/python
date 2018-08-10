@@ -1,14 +1,24 @@
+#!/usr/bin/env python3
+
 def zipgen():
 	count=0
 	while True:
-		print("count:%d" % count)
 		try:
 			if count % 2 == 0:
-				yield "first"[count]
+				char = "first"[count]
 				#yield "second"[count]
 			else:
-				yield "second"[count]
+				char = "second"[count]
 				#yield "first"[count]
+			
+			print("count : %d, yield : %s" % (count, char))
+			yield char
 		except:
 			return
 		count += 1
+
+if __name__ == "__main__":
+	out = ""
+	for char in zipgen():
+		out = out + char
+	print(out)
