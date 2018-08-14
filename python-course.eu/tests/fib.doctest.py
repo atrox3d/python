@@ -1,5 +1,9 @@
 #!/usr/bin/env python3
 import doctest
+"""
+	doctest will execute the same instruction pasted from
+	the interactive session and test the results
+"""
 
 def fib(n):
     """ 
@@ -23,5 +27,4 @@ def fib(n):
 
 if __name__ == "__main__":
 	doctest.testmod()
-	
 	
