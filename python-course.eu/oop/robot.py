@@ -21,6 +21,11 @@ class Robot:
 	def __init__(self, name = 'Nameless'):
 		#self.name = name
 		self.setname(name)
+		
+		self.public = 'public'
+		self._protected = 'protected'
+		self.__private = 'private'
+		
 	
 	def hello(self):
 		print('hello from ' + self.name)
