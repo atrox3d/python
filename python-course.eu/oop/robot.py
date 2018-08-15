@@ -19,10 +19,17 @@ log=logging.getLogger(__name__)
 #
 class Robot:
 	def __init__(self, name = 'Nameless'):
-		self.name = name
+		#self.name = name
+		self.setname(name)
 	
 	def hello(self):
 		print('hello from ' + self.name)
+		
+	def setname(self, name):
+		self.name = name
+		
+	def getname(self):
+		return self.name
 
 if __name__ == "__main__":
 	#
