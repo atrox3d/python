@@ -34,6 +34,9 @@ class Robot:
 	def __repr__(self):
 		return "{}('{}')".format(self.__class__.__name__, self.name)
 
+	def __str__(self):
+		return "{} : {}".format(self.__class__.__name__, self.name)
+
 if __name__ == "__main__":
 	#
 	#	class attribute
