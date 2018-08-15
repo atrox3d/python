@@ -18,7 +18,11 @@ log=logging.getLogger(__name__)
 #
 #
 class Robot:
-	pass
+	def __init__(self, name = 'Nameless'):
+		self.name = name
+	
+	def hello(self):
+		print('hello from ' + self.name)
 
 if __name__ == "__main__":
 	#
@@ -30,9 +34,10 @@ if __name__ == "__main__":
 	#
 	log.info("Robot    : %s", Robot)
 	for d in filter(lambda x: not x.startswith("__"), dir(Robot)):
-		log.info("	contents : %s", d     )
+		log.info("	contents : %s = %s", d, getattr(Robot,d)     )
 	log.info("attr1     : %s", Robot.attr1     )
 	log.info("__dict__ : %s", Robot.__dict__ )
+	log.info("getattr  : %s", getattr(Robot, 'attr1' ))
 	#
 	#	two instances
 	#
@@ -50,7 +55,9 @@ if __name__ == "__main__":
 	for r in [ r2d2, c3po ]:
 		log.info("robot    : %s", r          )
 		for d in filter(lambda x: not x.startswith("__"), dir(r)):
-			log.info("	contents : %s", d     )
+			log.info("	contents : %s = %s ", d, getattr(r,d )     )
 		log.info("attr1     : %s", r.attr1     )
 		log.info("__dict__ : %s", r.__dict__ )
+		log.info("getattr  : %s", getattr(r, 'attr1' ))
+		r.hello()
 
