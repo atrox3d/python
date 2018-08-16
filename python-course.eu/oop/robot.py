@@ -18,6 +18,11 @@ log=logging.getLogger(__name__)
 #
 #
 class Robot:
+	#
+	#	class attribute declared inside class
+	#
+	insideclassattr = "this is a class attribute"
+	
 	def __init__(self, name = 'Nameless'):
 		#self.name = name
 		self.setname(name)
@@ -49,9 +54,10 @@ class Robot:
 
 if __name__ == "__main__":
 	#
-	#	class attribute
+	#	class attribute declared outside class
 	#
-	Robot.attr1 =  "Robot class's attribute"
+	Robot.outsideclassattr =  "Robot class's attribute defined outside"
+	Robot.attr1            =  "Robot class's attribute with same name of instance attribute"
 	#
 	#	some class info
 	#
@@ -73,8 +79,8 @@ if __name__ == "__main__":
 	#
 	#	instance attribute
 	#
-	r2d2.attr1 = "r2d2 instance's attribute"
-	c3po.attr1 = "c3po instance's attribute"
+	r2d2.attr1 = "r2d2 instance's attribute attribute with same name of class attribute"
+	c3po.attr1 = "c3po instance's attribute attribute with same name of class attribute"
 	#
 	#	loop over instances
 	#
@@ -94,5 +100,7 @@ if __name__ == "__main__":
 			log.info("r.__private  : %s", r.__private)
 		except Exception as e:
 			log.error(e)
+		
+		r.instanceattr = "this is an instance attribute"
 		log.info("------------------------------------------------------------------")
 
