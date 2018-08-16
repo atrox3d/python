@@ -77,11 +77,17 @@ if __name__ == "__main__":
 		log.info("robot    : %s", r          )
 		for d in filter(lambda x: not x.startswith("__"), dir(r)):
 			log.info("	contents : %s = %s ", d, getattr(r,d )     )
-		log.info("attr1     : %s", r.attr1     )
-		log.info("__dict__  : %s", r.__dict__ )
-		log.info("getattr   : %s", getattr(r, 'attr1' ))
-		log.info("repr      : %s", repr(r))
-		log.info("str       : %s", str(r))
+		log.info("attr1        : %s", r.attr1     )
+		log.info("__dict__     : %s", r.__dict__ )
+		log.info("getattr      : %s", getattr(r, 'attr1' ))
+		log.info("repr         : %s", repr(r))
+		log.info("str          : %s", str(r))
 		r.hello()
+		log.info("r.public     : %s", r.public)
+		log.info("r._protected : %s", r._protected)
+		try:
+			log.info("r.__private  : %s", r.__private)
+		except Exception as e:
+			log.error(e)
 		log.info("------------------------------------------------------------------")
 
