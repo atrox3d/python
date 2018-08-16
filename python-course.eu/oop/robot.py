@@ -26,6 +26,11 @@ class Robot:
 		self._protected = 'protected'
 		self.__private = 'private'
 		
+		log.info("ROBOT %s has been created", self.name)
+		
+	def __del__(self):
+		log.info("ROBOT %s has been destroyed", self.name)
+		
 	
 	def hello(self):
 		print('hello from ' + self.name)
