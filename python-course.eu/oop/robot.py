@@ -34,15 +34,17 @@ class Robot:
 		log.info("ROBOT %s has been created", self.name)
 		
 	def __del__(self):
-		log.info("ROBOT %s has been destroyed", self.name)
+		log.debug("ROBOT %s has been destroyed", self.name)
 		
 	def hello(self):
 		log.info('hello from ' + self.name)
 		
 	def setname(self, name):
+		log.debug('%-15.15s : %s', 'setname', name)
 		self.name = name
 		
 	def getname(self):
+		log.info('%-15.15s : %s' 'getname', self.name)
 		return self.name
 		
 	def __repr__(self):
