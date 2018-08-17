@@ -20,36 +20,51 @@ log=logging.getLogger(__name__)
 class Robot:
 	#
 	#	class attribute declared inside class
+	#	Robot.insideclassattr
 	#
 	insideclassattr = "this is a class attribute"
-	
+	#
+	#	constructor
+	#
 	def __init__(self, name = 'Nameless'):
 		#self.name = name
-		self.setname(name)
+		self.setname(name)														#	instance.name
 		
-		self.public = 'public'
-		self._protected = 'protected'
-		self.__private = 'private'
+		self.public = 'public'													#	instance.public
+		self._protected = 'protected'                                           #	instance._protected
+		self.__private = 'private'                                              #	instance.__private
 		
 		log.info("ROBOT %s has been created", self.name)
-		
+	#
+	#	destructor
+	#
 	def __del__(self):
 		log.debug("ROBOT %s has been destroyed", self.name)
-		
+	#
+	#	method
+	#
 	def hello(self):
 		log.info('hello from ' + self.name)
-		
+	#
+	#	setter
+	#
 	def setname(self, name):
 		log.debug('%-15.15s : %s', 'setname', name)
 		self.name = name
-		
+	#
+	#	getter
+	#
 	def getname(self):
 		log.info('%-15.15s : %s' 'getname', self.name)
 		return self.name
-		
+	#
+	#	representation
+	#
 	def __repr__(self):
 		return "{}('{}')".format(self.__class__.__name__, self.name)
-
+	#
+	#	string
+	#
 	def __str__(self):
 		return "{} : {}".format(self.__class__.__name__, self.name)
 
