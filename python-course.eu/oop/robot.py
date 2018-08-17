@@ -91,14 +91,24 @@ if __name__ == "__main__":
 	#	loop over instances
 	#
 	for r in [ r2d2, c3po ]:
+		r.instanceattr = "this is an instance attribute"
+		
 		log.info("%-15.15s : %s", 'robot', r)
+		#
+		#	loop over non hidden properties
+		#
 		for d in filter(lambda x: not x.startswith("__"), dir(r)):
 			log.info("%15.15s : %s = %s", 'contents', d, getattr(r,d)     )
+		
 		log.info("%15.15s : %s", 'attr1', r.attr1     )
+		#
+		#	loop over dict items
+		#
 		log.info("..................................................................")
 		for k, v in r.__dict__.items():
 			log.info("%15.15s : { %-15.15s : %s }", '__dict__', k, v )
 		log.info("..................................................................")
+		
 		log.info("%15.15s : %s", 'getattr attr1', getattr(r, 'attr1' ))
 		log.info("%15.15s : %s", 'repr', repr(r))
 		log.info("%15.15s : %s", 'str', str(r))
@@ -110,6 +120,5 @@ if __name__ == "__main__":
 		except Exception as e:
 			log.error(e)
 		
-		r.instanceattr = "this is an instance attribute"
 		log.info("------------------------------------------------------------------")
 
