@@ -19,14 +19,27 @@ log=logging.getLogger(__name__)
 #
 class Robot:
 	#
+	#	private class attribute
+	#
+	__counter = 0
+	#
 	#	class attribute declared inside class
 	#	Robot.insideclassattr
 	#
+	@staticmethod
+	def getinstances():
+		return Robot.__counter
+	
 	insideclassattr = "this is a class attribute"
 	#
 	#	constructor
 	#
 	def __init__(self, name = 'Nameless'):
+		#
+		#
+		#
+		type(self).__counter += 1
+		log.debug("%-15.15s : %s", 'type(self)', type(self) )
 		#self.name = name
 		self.setname(name)														#	instance.name
 		
@@ -67,6 +80,10 @@ class Robot:
 	#
 	def __str__(self):
 		return "{} : {}".format(self.__class__.__name__, self.name)
+
+		
+		
+		
 
 if __name__ == "__main__":
 	#
@@ -136,4 +153,5 @@ if __name__ == "__main__":
 			log.error(e)
 		
 		log.info("------------------------------------------------------------------")
+	log.info( "%-15.15s : %d", '# of robots', Robot.getinstances())
 
