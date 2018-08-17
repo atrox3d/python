@@ -21,7 +21,7 @@ class P:
 	def __init__(self, x, y):
 		log.debug("x = %s, y = %s", x, y)
 		self.x = x
-		self.sety(y)
+		self.y = y
 		
 	@property
 	def x(self):
