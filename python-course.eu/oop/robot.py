@@ -4,9 +4,9 @@ import logging
 logging.basicConfig(
 	level	= 	logging.DEBUG,
 	#level	= 	logging.INFO,
-	format	= 	"%(asctime)s | " + 
+	format	= 	#"%(asctime)s | " + 
 				"%(module)s | " + 
-				"%(name)-10s:" +
+				#"%(name)-10s:" +
 				"%(funcName)-10s | " + 
 				"%(levelname)-" + 
 					str(len("CRITICAL")) + "s | " + 
@@ -36,9 +36,8 @@ class Robot:
 	def __del__(self):
 		log.info("ROBOT %s has been destroyed", self.name)
 		
-	
 	def hello(self):
-		print('hello from ' + self.name)
+		log.info('hello from ' + self.name)
 		
 	def setname(self, name):
 		self.name = name
@@ -56,26 +55,31 @@ if __name__ == "__main__":
 	#
 	#	class attribute declared outside class
 	#
-	Robot.outsideclassattr =  "Robot class's attribute defined outside"
-	Robot.attr1            =  "Robot class's attribute with same name of instance attribute"
+	Robot.outsideclassattr =  "Robot class's attribute defined outside, same as insideclassattr"
+	Robot.attr1            =  "Robot class's attribute with same name of instance attribute, will be overridden"
 	#
 	#	some class info
 	#
-	log.info("Robot    : %s", Robot)
-	#for d in filter(lambda x: not x.startswith("__"), dir(Robot)):
-	for d in dir(Robot):
-		log.info("	contents : %s = %s", d, getattr(Robot,d)     )
-	log.info("attr1     : %s", Robot.attr1     )
-	log.info("__dict__  : %s", Robot.__dict__ )
-	log.info("getattr   : %s", getattr(Robot, 'attr1' ))
-	log.info("repr      : %s", repr(Robot))
-	log.info("str       : %s", str(Robot))
+	log.info("%-15.15s : %s", 'Robot', Robot)
+	for d in filter(lambda x: not x.startswith("__"), dir(Robot)):
+	#for d in dir(Robot):
+		log.info("%15.15s : %s = %s", 'contents', d, getattr(Robot,d)     )
+	log.info("%15.15s : %s", 'attr1', Robot.attr1     )
+	log.info("..................................................................")
+	
+	for k, v in Robot.__dict__.items():
+		log.info("%15.15s : { %-15.15s : %s }", '__dict__', k, v )
+	
+	log.info("..................................................................")
+	log.info("%15.15s : %s", 'getattr attr1', getattr(Robot, 'attr1' ))
+	log.info("%15.15s : %s", 'repr', repr(Robot))
+	log.info("%15.15s : %s", 'str', str(Robot))
 	log.info("------------------------------------------------------------------")
 	#
 	#	two instances
 	#
-	r2d2 = Robot()
-	c3po = Robot()
+	r2d2 = Robot('R2D2')
+	c3po = Robot('C3PO')
 	#
 	#	instance attribute
 	#
@@ -85,17 +89,20 @@ if __name__ == "__main__":
 	#	loop over instances
 	#
 	for r in [ r2d2, c3po ]:
-		log.info("robot    : %s", r          )
+		log.info("%-15.15s : %s", 'robot', r)
 		for d in filter(lambda x: not x.startswith("__"), dir(r)):
-			log.info("	contents : %s = %s ", d, getattr(r,d )     )
-		log.info("attr1        : %s", r.attr1     )
-		log.info("__dict__     : %s", r.__dict__ )
-		log.info("getattr      : %s", getattr(r, 'attr1' ))
-		log.info("repr         : %s", repr(r))
-		log.info("str          : %s", str(r))
+			log.info("%15.15s : %s = %s", 'contents', d, getattr(r,d)     )
+		log.info("%15.15s : %s", 'attr1', r.attr1     )
+		log.info("..................................................................")
+		for k, v in r.__dict__.items():
+			log.info("%15.15s : { %-15.15s : %s }", '__dict__', k, v )
+		log.info("..................................................................")
+		log.info("%15.15s : %s", 'getattr attr1', getattr(r, 'attr1' ))
+		log.info("%15.15s : %s", 'repr', repr(r))
+		log.info("%15.15s : %s", 'str', str(r))
 		r.hello()
-		log.info("r.public     : %s", r.public)
-		log.info("r._protected : %s", r._protected)
+		log.info("%15.15s : %s", 'r.public', r.public)
+		log.info("%15.15s : %s", 'r._protected', r._protected)
 		try:
 			log.info("r.__private  : %s", r.__private)
 		except Exception as e:
