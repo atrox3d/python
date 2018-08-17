@@ -33,15 +33,15 @@ class P:
 		log.debug("set x = %s", x )
 		self.__x = x
 		
-	def sety(self, y):
+	def __sety(self, y):
 		log.debug("set y = %s", y )
 		self.__y = y
 		
-	def gety(self):
+	def __gety(self):
 		log.debug("return y = %s", self.__y )
 		return self.__y
 	
-	y = property(gety, sety)
+	y = property(__gety, __sety)
 
 if __name__ == "__main__":
 	p = P(1, 2)
