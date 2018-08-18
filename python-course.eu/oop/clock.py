@@ -25,15 +25,23 @@ class Clock(object):
 	def __init__(self, hours, minutes, seconds):
 		"""
 		"""
-		self.setclock(self, hours, minutes, seconds)
+		log.debug("%-10.10s = %s", 'hours', hours)
+		log.debug("%-10.10s = %s", 'minutes', minutes)
+		log.debug("%-10.10s = %s", 'seconds', seconds)
+		self.setclock(hours, minutes, seconds)
 
 	def setclock(self, hours, minutes, seconds):
 		"""
 		"""
-		pass
+		log.debug("%-10.10s = %s", 'hours', hours)
+		log.debug("%-10.10s = %s", 'minutes', minutes)
+		log.debug("%-10.10s = %s", 'seconds', seconds)
 		
 	def __str__(self):
-		pass
+		log.debug("%-10.10s = %s", '__str__', '__str__')
+		
+	def tick(self):
+		log.debug("%-10.10s = %s", 'tick', 'tick')
 
 if __name__ == "__main__":
 	pass
