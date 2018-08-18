@@ -39,9 +39,13 @@ class Clock(object):
 		
 	def __str__(self):
 		log.debug("%-10.10s = %s", '__str__', '__str__')
+		return "__str__"
 		
 	def tick(self):
 		log.debug("%-10.10s = %s", 'tick', 'tick')
 
 if __name__ == "__main__":
-	pass
+	c = Clock(1, 2, 3)
+	print(c)
+	c.tick()
+	
