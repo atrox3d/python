@@ -11,7 +11,7 @@ logging.basicConfig(
 	format	= 	#"%(asctime)s | " + 
 				"%(module)s | " + 
 				"%(name)-10s:" +
-				"%(funcName)-10s | " + 
+				"%(funcName)-15.15s | " + 
 				"%(levelname)-" + 
 					str(len("CRITICAL")) + "s | " + 
 				"%(message)s",
@@ -29,10 +29,20 @@ class Calendar(object):
 	def leapyear(year):
 		"""
 		"""
-		if not year % 4 == 0: return False
-		elif not year % 100 == 0: return False
-		elif not year % 400 == 0: return False
-		else: return True
+		log.debug("%-10.10s = %s", 'year', year)
+
+		if not year % 4 == 0: 
+			log.debug("year %s is not leap, not divisible by 4", year)
+			return False
+		elif not year % 100 == 0: 
+			log.debug("year %s is not leap, not divisible by 100", year)
+			return False
+		elif not year % 400 == 0: 
+			log.debug("year %s is not leap, not divisible by 400", year)
+			return False
+		else: 
+			log.debug("year %s is leap", year)
+			return True
 	
 	def __init__(self, day, month, year):
 		"""
@@ -76,7 +86,33 @@ class Calendar(object):
 												)
 		log.debug("%-10.10s = %s", 'value', value)
 		return value
+		
+	def advance(self):
+		"""
+		"""
+		maxdays = Calendar.months[self.__month - 1]
+		log.debug("%-10.10s = %s", 'maxdays', maxdays)
+		
+		if self.__month == 2:
+			leap = Calendar.leapyear(self.__year)
+			log.debug("%-10.10s = %s", 'leap', leap)
+			
+			if leap:
+				maxdays += 1
+				log.debug("%-10.10s = %s", 'maxdays', maxdays)
+				
+		if self.__day == maxdays:
+			self.__day = 1
+			if self.__month == 12:
+				self.__month = 1
+				self.__year += 1
+			else:
+				self.__month += 1
+		else:
+			self.__day += 1
+		log.debug("%-10.10s = %s", '__str__', self.__str__())
 	
+		
 
 if __name__ == "__main__":
 	try:
@@ -91,3 +127,7 @@ if __name__ == "__main__":
 		c = Calendar( 1, 2, 3000 )
 	except:
 		pass
+	
+	c = Calendar( 31, 12, 3000 )
+	c.advance()
+	
