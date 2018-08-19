@@ -9,7 +9,7 @@ logging.basicConfig(
 	level	= 	logging.DEBUG,
 	#level	= 	logging.INFO,
 	format	= 	#"%(asctime)s | " + 
-				"%(module)s | " + 
+				"%(module)-15.15s | " + 
 				"%(name)-10s:" +
 				"%(funcName)-15.15s | " + 
 				"%(levelname)-" + 
@@ -35,8 +35,16 @@ class CalendarClock(Clock, Calendar):
 		minutes,
 		seconds
 	):
-		pass
+		#
+		#	play with args : get list of arg keys in reverse order except self
+		#
+		args = [ arg for arg in list(locals().keys())[::-1] if  not arg == 'self' ]
+		for arg in args:
+			log.debug("%-10.10s = %s", arg, locals()[arg])
+		
+		Clock.__init__( self, hours, minutes, seconds )
+		Calendar.__init__( self, day, month, year )
 	
 
 if __name__ == "__main__":
-	pass
+	cc = CalendarClock(1,2,3000,4,5,6)
