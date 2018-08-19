@@ -60,6 +60,9 @@ class Clock(object):
 			raise TypeError("0 < seconds < 60")
 		
 	def __str__(self):
+		"""
+		returns a string representing the clock value with the format "hh:mm:ss"
+		"""
 		value = "{:02d}:{:02d}:{:02d}".format(
 												self._hours,
 												self._minutes,
@@ -69,6 +72,9 @@ class Clock(object):
 		return value
 		
 	def tick(self):
+		"""
+		increments the clock value
+		"""
 		if self._seconds == 59:
 			self._seconds = 0
 			if self._minutes == 59:
