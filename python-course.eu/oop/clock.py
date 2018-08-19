@@ -49,7 +49,7 @@ class Clock(object):
 				self.__hours = hours
 				log.debug("%-15.15s = %s", 'set __hours', self.__hours)
 			else:
-				raise TypeError("0 < hours < 24")
+				raise TypeError("0 <= hours < 24")
 
 	@property
 	def minutes(self):
@@ -63,7 +63,7 @@ class Clock(object):
 				self.__minutes = minutes
 				log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
 			else:
-				raise TypeError("0 < minutes < 60")
+				raise TypeError("0 <= minutes < 60")
 
 	@property
 	def seconds(self):
@@ -77,7 +77,7 @@ class Clock(object):
 				self.__seconds = seconds
 				log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
 			else:
-				raise TypeError("0 < seconds < 60")
+				raise TypeError("0 <= seconds < 60")
 
 	#def setclock(self, hours, minutes, seconds):
 	#	"""
