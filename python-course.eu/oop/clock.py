@@ -44,8 +44,12 @@ class Clock(object):
 
 	@hours.setter
 	def hours(self, hours):
-		self.__hours = hours
-		log.debug("%-15.15s = %s", 'set __hours', self.__hours)
+		if type(hours) == int:
+			if 0 <= hours < 24:
+				self.__hours = hours
+				log.debug("%-15.15s = %s", 'set __hours', self.__hours)
+			else:
+				raise TypeError("0 < hours < 24")
 
 	@property
 	def minutes(self):
@@ -54,8 +58,12 @@ class Clock(object):
 
 	@minutes.setter
 	def minutes(self, minutes):
-		self.__minutes = minutes
-		log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
+		if type(minutes) == int:
+			if 0 <= minutes < 60:
+				self.__minutes = minutes
+				log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
+			else:
+				raise TypeError("0 < minutes < 60")
 
 	@property
 	def seconds(self):
@@ -64,33 +72,37 @@ class Clock(object):
 
 	@seconds.setter
 	def seconds(self, seconds):
-		self.__seconds = seconds
-		log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
+		if type(seconds) == int:
+			if 0 <= seconds < 60:
+				self.__seconds = seconds
+				log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
+			else:
+				raise TypeError("0 < seconds < 60")
 
-	def setclock(self, hours, minutes, seconds):
-		"""
-		0 < hours   < 24
-		0 < minutes < 60
-		0 < seconds < 60
-		"""
-		log.debug("%-15.15s = %s", 'hours', hours)
-		log.debug("%-15.15s = %s", 'minutes', minutes)
-		log.debug("%-15.15s = %s", 'seconds', seconds)
-		
-		if type(hours) == int and 0 <= hours and hours < 24:
-			self._hours = hours
-		else:
-			raise TypeError("0 < hours < 24")
-			
-		if type(minutes) == int and 0 <= minutes and minutes < 60:
-			self._minutes = minutes
-		else:
-			raise TypeError("0 < minutes < 60")
-			
-		if type(seconds) == int and 0 <= seconds and seconds < 60:
-			self._seconds = seconds
-		else:
-			raise TypeError("0 < seconds < 60")
+	#def setclock(self, hours, minutes, seconds):
+	#	"""
+	#	0 < hours   < 24
+	#	0 < minutes < 60
+	#	0 < seconds < 60
+	#	"""
+	#	log.debug("%-15.15s = %s", 'hours', hours)
+	#	log.debug("%-15.15s = %s", 'minutes', minutes)
+	#	log.debug("%-15.15s = %s", 'seconds', seconds)
+	#	
+	#	if type(hours) == int and 0 <= hours and hours < 24:
+	#		self._hours = hours
+	#	else:
+	#		raise TypeError("0 < hours < 24")
+	#		
+	#	if type(minutes) == int and 0 <= minutes and minutes < 60:
+	#		self._minutes = minutes
+	#	else:
+	#		raise TypeError("0 < minutes < 60")
+	#		
+	#	if type(seconds) == int and 0 <= seconds and seconds < 60:
+	#		self._seconds = seconds
+	#	else:
+	#		raise TypeError("0 < seconds < 60")
 		
 	def __str__(self):
 		"""
@@ -125,9 +137,9 @@ class Clock(object):
 		#return self.__str__()
 
 if __name__ == "__main__":
-	c = Clock(22, 59, 58)
+	c = Clock(23, 59, 59)
 	log.info(c)
-	#c.tick()
-	#c.tick()
-	#c.tick()
+	c.tick()
+	c.tick()
+	c.tick()
 	
