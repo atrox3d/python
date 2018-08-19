@@ -57,9 +57,12 @@ class CalendarClock(Clock, Calendar):
 	
 	def __str__(self):
 		value = Calendar.__str__(self) + ", " + Clock.__str__(self)
+		log.debug("%-10.10s = %s", 'value', value)
 		return value
 
 if __name__ == "__main__":
 	cc = CalendarClock(1,2,3000,23,59,59)
+	print("\nstr\n")
 	print(cc)
+	print("\ntick\n")
 	cc.tick()

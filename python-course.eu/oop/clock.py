@@ -68,7 +68,7 @@ class Clock(object):
 												self._minutes,
 												self._seconds
 											)
-		log.debug("%-10.10s = %s", '__str__', value)
+		log.debug("%-10.10s = %s", 'value', value)
 		return value
 		
 	def tick(self):
@@ -89,7 +89,7 @@ class Clock(object):
 			self._seconds += 1
 		
 		log.debug("%-10.10s = %s", 'tick', self.__str__())
-		return self.__str__()
+		#return self.__str__()
 
 if __name__ == "__main__":
 	c = Clock(22, 59, 58)
