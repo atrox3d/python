@@ -45,6 +45,10 @@ class CalendarClock(Clock, Calendar):
 		Clock.__init__( self, hours, minutes, seconds )
 		Calendar.__init__( self, day, month, year )
 	
+	def __str__(self):
+		value = Calendar.__str__(self) + ", " + Clock.__str__(self)
+		return value
 
 if __name__ == "__main__":
 	cc = CalendarClock(1,2,3000,4,5,6)
+	print(cc)
