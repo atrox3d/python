@@ -22,6 +22,7 @@ log=logging.getLogger(__name__)
 #
 #
 class Clock(object):
+
 	def __init__(self, hours, minutes, seconds):
 		"""
 		0 < hours   < 24
@@ -57,18 +58,21 @@ class Clock(object):
 			self._seconds = seconds
 		else:
 			raise TypeError("0 < seconds < 60")
-			
-		
 		
 	def __str__(self):
-		log.debug("%-10.10s = %s", '__str__', '__str__')
-		return "__str__"
+		value = "{:02d}:{:02d}:{:02d}".format(
+												self._hours,
+												self._minutes,
+												self._seconds
+											)
+		log.debug("%-10.10s = %s", '__str__', value)
+		return value
 		
 	def tick(self):
 		log.debug("%-10.10s = %s", 'tick', 'tick')
 
 if __name__ == "__main__":
 	c = Clock(22, 59, 30)
-	print(c)
+	log.info(c)
 	c.tick()
 	
