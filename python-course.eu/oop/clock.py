@@ -29,10 +29,43 @@ class Clock(object):
 		0 < minutes < 60
 		0 < seconds < 60
 		"""
-		log.debug("%-10.10s = %s", 'hours', hours)
-		log.debug("%-10.10s = %s", 'minutes', minutes)
-		log.debug("%-10.10s = %s", 'seconds', seconds)
-		self.setclock(hours, minutes, seconds)
+		log.debug("%-15.15s = %s", 'hours', hours)
+		log.debug("%-15.15s = %s", 'minutes', minutes)
+		log.debug("%-15.15s = %s", 'seconds', seconds)
+		#self.setclock(hours, minutes, seconds)
+		self.hours = hours
+		self.minutes = minutes
+		self.seconds = seconds
+		
+	@property
+	def hours(self):
+		log.debug("%-15.15s = %s", 'get __hours', self.__hours)
+		return self.__hours
+
+	@hours.setter
+	def hours(self, hours):
+		self.__hours = hours
+		log.debug("%-15.15s = %s", 'set __hours', self.__hours)
+
+	@property
+	def minutes(self):
+		log.debug("%-15.15s = %s", 'get __minutes', self.__minutes)
+		return self.__minutes
+
+	@minutes.setter
+	def minutes(self, minutes):
+		self.__minutes = minutes
+		log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
+
+	@property
+	def seconds(self):
+		log.debug("%-15.15s = %s", 'get __seconds', self.__seconds)
+		return self.__seconds
+
+	@seconds.setter
+	def seconds(self, seconds):
+		self.__seconds = seconds
+		log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
 
 	def setclock(self, hours, minutes, seconds):
 		"""
@@ -40,9 +73,9 @@ class Clock(object):
 		0 < minutes < 60
 		0 < seconds < 60
 		"""
-		log.debug("%-10.10s = %s", 'hours', hours)
-		log.debug("%-10.10s = %s", 'minutes', minutes)
-		log.debug("%-10.10s = %s", 'seconds', seconds)
+		log.debug("%-15.15s = %s", 'hours', hours)
+		log.debug("%-15.15s = %s", 'minutes', minutes)
+		log.debug("%-15.15s = %s", 'seconds', seconds)
 		
 		if type(hours) == int and 0 <= hours and hours < 24:
 			self._hours = hours
@@ -64,37 +97,37 @@ class Clock(object):
 		returns a string representing the clock value with the format "hh:mm:ss"
 		"""
 		value = "{:02d}:{:02d}:{:02d}".format(
-												self._hours,
-												self._minutes,
-												self._seconds
+												self.hours,
+												self.minutes,
+												self.seconds
 											)
-		log.debug("%-10.10s = %s", 'value', value)
+		log.debug("%-15.15s = %s", 'value', value)
 		return value
 		
 	def tick(self):
 		"""
 		increments the clock value
 		"""
-		if self._seconds == 59:
-			self._seconds = 0
-			if self._minutes == 59:
-				self._minutes = 0
-				if self._hours == 23:
-					self._hours = 0
+		if self.seconds == 59:
+			self.seconds = 0
+			if self.minutes == 59:
+				self.minutes = 0
+				if self.hours == 23:
+					self.hours = 0
 				else:
-					self._hours += 1
+					self.hours += 1
 			else:
-				self._minutes += 1
+				self.minutes += 1
 		else:
-			self._seconds += 1
+			self.seconds += 1
 		
-		log.debug("%-10.10s = %s", 'tick', self.__str__())
+		log.debug("%-15.15s = %s", 'tick', self.__str__())
 		#return self.__str__()
 
 if __name__ == "__main__":
 	c = Clock(22, 59, 58)
 	log.info(c)
-	c.tick()
-	c.tick()
-	c.tick()
+	#c.tick()
+	#c.tick()
+	#c.tick()
 	
