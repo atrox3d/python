@@ -142,4 +142,7 @@ if __name__ == "__main__":
 	c.tick()
 	c.tick()
 	c.tick()
+	print('hours', c.hours)
+	print('minutes', c.minutes)
+	print('seconds', c.seconds)
 	
