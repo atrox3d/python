@@ -48,11 +48,11 @@ class CalendarClock(Clock, Calendar):
 	def tick(self):
 		"""
 		"""
-		hours = self._hours
+		hours = self.hours
 		Clock.tick(self)
 		log.debug("%-10.10s = %s", 'hours', hours)
-		log.debug("%-10.10s = %s", 'self._hours', self._hours)
-		if self._hours < hours:
+		log.debug("%-10.10s = %s", 'self._hours', self.hours)
+		if self.hours < hours:
 			self.advance()
 	
 	def __str__(self):
@@ -61,7 +61,7 @@ class CalendarClock(Clock, Calendar):
 		return value
 
 if __name__ == "__main__":
-	cc = CalendarClock(1,2,3000,23,59,59)
+	cc = CalendarClock(1, 2, 3000, 23, 59, 59)
 	print("\nstr\n")
 	print(cc)
 	print("\ntick\n")
