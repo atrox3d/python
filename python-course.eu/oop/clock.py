@@ -99,6 +99,7 @@ class Clock(object):
 		"""
 		increments the clock value
 		"""
+		log.debug("%-15.15s = %s", 'before tick', self.__str__())
 		if self.seconds == 59:
 			self.seconds = 0
 			if self.minutes == 59:
@@ -112,7 +113,7 @@ class Clock(object):
 		else:
 			self.seconds += 1
 		
-		log.debug("%-15.15s = %s", 'tick', self.__str__())
+		log.debug("%-15.15s = %s", 'after tick', self.__str__())
 		#return self.__str__()
 
 if __name__ == "__main__":
