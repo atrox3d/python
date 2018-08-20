@@ -26,6 +26,10 @@ from validator import Validator
 
 class Clock(object):
 
+	
+	__validhour   = Validator( lambda x: type(x) == int, lambda x:0<=x<24)
+	__validminsec = Validator( lambda x: type(x) == int, lambda x:0<=x<60)
+	
 	def __init__(self, hours, minutes, seconds):
 		"""
 		0 < hours   < 24
@@ -47,12 +51,10 @@ class Clock(object):
 
 	@hours.setter
 	def hours(self, hours):
-		if type(hours) == int:
-			if 0 <= hours < 24:
-				self.__hours = hours
-				log.debug("%-15.15s = %s", 'set __hours', self.__hours)
-			else:
-				raise TypeError("0 <= hours < 24")
+		if Clock.__validhour.isvalid(hours):
+			self.__hours = hours
+		else:
+			raise TypeError("0 <= hours < 24")
 
 	@property
 	def minutes(self):
@@ -61,12 +63,10 @@ class Clock(object):
 
 	@minutes.setter
 	def minutes(self, minutes):
-		if type(minutes) == int:
-			if 0 <= minutes < 60:
-				self.__minutes = minutes
-				log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
-			else:
-				raise TypeError("0 <= minutes < 60")
+		if Clock.__validminsec.isvalid(minutes):
+			self.__minutes = minutes
+		else:
+			raise TypeError("0 <= minutes < 60")
 
 	@property
 	def seconds(self):
@@ -75,38 +75,11 @@ class Clock(object):
 
 	@seconds.setter
 	def seconds(self, seconds):
-		if type(seconds) == int:
-			if 0 <= seconds < 60:
-				self.__seconds = seconds
-				log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
-			else:
-				raise TypeError("0 <= seconds < 60")
+		if Clock.__validminsec.isvalid(seconds):
+			self.__seconds = seconds
+		else:
+			raise TypeError("0 <= seconds < 60")
 
-	#def setclock(self, hours, minutes, seconds):
-	#	"""
-	#	0 < hours   < 24
-	#	0 < minutes < 60
-	#	0 < seconds < 60
-	#	"""
-	#	log.debug("%-15.15s = %s", 'hours', hours)
-	#	log.debug("%-15.15s = %s", 'minutes', minutes)
-	#	log.debug("%-15.15s = %s", 'seconds', seconds)
-	#	
-	#	if type(hours) == int and 0 <= hours and hours < 24:
-	#		self._hours = hours
-	#	else:
-	#		raise TypeError("0 < hours < 24")
-	#		
-	#	if type(minutes) == int and 0 <= minutes and minutes < 60:
-	#		self._minutes = minutes
-	#	else:
-	#		raise TypeError("0 < minutes < 60")
-	#		
-	#	if type(seconds) == int and 0 <= seconds and seconds < 60:
-	#		self._seconds = seconds
-	#	else:
-	#		raise TypeError("0 < seconds < 60")
-		
 	def __str__(self):
 		"""
 		returns a string representing the clock value with the format "hh:mm:ss"
