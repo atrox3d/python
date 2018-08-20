@@ -23,17 +23,18 @@ log=logging.getLogger(__name__)
 #
 debug_value_format = "%-{0}.{0}s : %s".format(20)
 class Validator:
-	def __init__(self, value, *validators):
+	#def __init__(self, value, *validators):
+	def __init__(self, *validators):
 
-		self.value = value
+		#self.value = value
 
 		self.__validators = []
 		for validator in validators:
 			self.add(validator)
 
-		log.debug(debug_value_format,  'value',			value)
+		#log.debug(debug_value_format,  'value',			value)
 		log.debug(debug_value_format,  'validators',		validators)
-		log.debug(debug_value_format,  'self.value',		self.value)
+		#log.debug(debug_value_format,  'self.value',		self.value)
 		log.debug(debug_value_format,  'self.__validators',	self.__validators)
 	
 	def add(self, validatorfunc):
@@ -48,11 +49,12 @@ class Validator:
 		log.debug(debug_value_format,  'return __validators',	self.__validators)
 		return self.__validators
 		
-	def isvalid(self):
+	def isvalid(self, value):
+		log.debug(debug_value_format,  'value',			value)
 		log.debug(debug_value_format,  'self.__validators',	self.__validators)
 		for v in self.__validators:
 			log.debug(debug_value_format,  'next validator',	v)
-			if not v(self.value):
+			if not v(value):
 				log.debug(debug_value_format,  'validated',	False)
 				log.debug(debug_value_format,  'isvalid',	False)
 				return False
@@ -73,8 +75,8 @@ class Validator:
 
 
 if __name__ == "__main__":
-	v = Validator(5)
-	v = Validator(5, lambda x: type(x) == int, lambda x: 0<=x<10)
+	v = Validator()
+	v = Validator(lambda x: type(x) == int, lambda x: 0<=x<10)
 	v.add(lambda x:x>6)
 	v.list()
-	print(v.isvalid())
+	print(v.isvalid(7))
