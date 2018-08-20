@@ -100,37 +100,37 @@ class Calendar(object):
 	
 	
 		
-	def setcalendar(self, day, month, year):
-		"""
-		"""
-		log.debug("%-10.10s = %s", 'day', day)
-		log.debug("%-10.10s = %s", 'month', month)
-		log.debug("%-10.10s = %s", 'year', year)
-		for check in [ day, month, year ]:
-			if not type(check) == int:
-				log.error("parameters must be integers")
-				raise TypeError( "parameters must be integers")
-		
-		if year < 1000: 
-			log.error("year must be a 4 digit number")
-			raise Exception( "year must be a 4 digit number")
-		
-		self.__day = day
-		self.__month = month
-		self.__year = year
+	#def setcalendar(self, day, month, year):
+	#	"""
+	#	"""
+	#	log.debug("%-10.10s = %s", 'day', day)
+	#	log.debug("%-10.10s = %s", 'month', month)
+	#	log.debug("%-10.10s = %s", 'year', year)
+	#	for check in [ day, month, year ]:
+	#		if not type(check) == int:
+	#			log.error("parameters must be integers")
+	#			raise TypeError( "parameters must be integers")
+	#	
+	#	if year < 1000: 
+	#		log.error("year must be a 4 digit number")
+	#		raise Exception( "year must be a 4 digit number")
+	#	
+	#	self.__day = day
+	#	self.__month = month
+	#	self.__year = year
 		
 	def __str__(self):
 		if Calendar.datestyle == "british":
 			value = "{:02d}/{:02d}/{:04d}".format(
-													self.__day,
-													self.__month,
-													self.__year
+													self.day,
+													self.month,
+													self.year
 												)
 		else:
 			value = "{:02d}/{:02d}/{:04d}".format(
-													self.__month,
-													self.__day,
-													self.__year
+													self.month,
+													self.day,
+													self.year
 												)
 		log.debug("%-10.10s = %s", 'value', value)
 		return value
@@ -138,26 +138,26 @@ class Calendar(object):
 	def advance(self):
 		"""
 		"""
-		maxdays = Calendar.months[self.__month - 1]
+		maxdays = Calendar.months[self.month - 1]
 		log.debug("%-10.10s = %s", 'maxdays', maxdays)
 		
-		if self.__month == 2:
-			leap = Calendar.leapyear(self.__year)
+		if self.month == 2:
+			leap = Calendar.leapyear(self.year)
 			log.debug("%-10.10s = %s", 'leap', leap)
 			
 			if leap:
 				maxdays += 1
 				log.debug("%-10.10s = %s", 'maxdays', maxdays)
 				
-		if self.__day == maxdays:
-			self.__day = 1
-			if self.__month == 12:
-				self.__month = 1
-				self.__year += 1
+		if self.day == maxdays:
+			self.day = 1
+			if self.month == 12:
+				self.month = 1
+				self.year += 1
 			else:
-				self.__month += 1
+				self.month += 1
 		else:
-			self.__day += 1
+			self.day += 1
 		log.debug("%-10.10s = %s", '__str__', self.__str__())
 	
 		
