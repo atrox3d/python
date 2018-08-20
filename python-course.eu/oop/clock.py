@@ -53,6 +53,7 @@ class Clock(object):
 	def hours(self, hours):
 		if Clock.__validhour.isvalid(hours):
 			self.__hours = hours
+			log.debug("%-15.15s = %s", 'set __hours', self.__hours)
 		else:
 			raise TypeError("0 <= hours < 24")
 
@@ -65,6 +66,7 @@ class Clock(object):
 	def minutes(self, minutes):
 		if Clock.__validminsec.isvalid(minutes):
 			self.__minutes = minutes
+			log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
 		else:
 			raise TypeError("0 <= minutes < 60")
 
@@ -77,6 +79,7 @@ class Clock(object):
 	def seconds(self, seconds):
 		if Clock.__validminsec.isvalid(seconds):
 			self.__seconds = seconds
+			log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
 		else:
 			raise TypeError("0 <= seconds < 60")
 
