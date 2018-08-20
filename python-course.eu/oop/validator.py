@@ -49,7 +49,7 @@ class Validator:
 		log.debug(debug_value_format,  'return __validators',	self.__validators)
 		return self.__validators
 		
-	def isvalid(self, value):
+	def __call__(self, value):
 		log.debug(debug_value_format,  'value',			value)
 		log.debug(debug_value_format,  'self.__validators',	self.__validators)
 		for v in self.__validators:

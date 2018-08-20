@@ -51,7 +51,7 @@ class Clock(object):
 
 	@hours.setter
 	def hours(self, hours):
-		if Clock.__validhour.isvalid(hours):
+		if Clock.__validhour(hours):
 			self.__hours = hours
 			log.debug("%-15.15s = %s", 'set __hours', self.__hours)
 		else:
@@ -64,7 +64,7 @@ class Clock(object):
 
 	@minutes.setter
 	def minutes(self, minutes):
-		if Clock.__validminsec.isvalid(minutes):
+		if Clock.__validminsec(minutes):
 			self.__minutes = minutes
 			log.debug("%-15.15s = %s", 'set __minutes', self.__minutes)
 		else:
@@ -77,7 +77,7 @@ class Clock(object):
 
 	@seconds.setter
 	def seconds(self, seconds):
-		if Clock.__validminsec.isvalid(seconds):
+		if Clock.__validminsec(seconds):
 			self.__seconds = seconds
 			log.debug("%-15.15s = %s", 'set __seconds', self.__seconds)
 		else:

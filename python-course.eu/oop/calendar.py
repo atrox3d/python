@@ -21,7 +21,14 @@ log=logging.getLogger(__name__)
 #
 #
 #
+from validator import Validator
+
 class Calendar(object):
+
+	__validday   = Validator( lambda x: type(x) == int, lambda x: 1 <= x <= 31)
+	__validmonth = Validator( lambda x: type(x) == int, lambda x: 1 <= x <= 12)
+	__validyear  = Validator( lambda x: type(x) == int, lambda x: x > 999)
+
 	months = (31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31)
 	datestyle = "british"
 	
@@ -50,7 +57,48 @@ class Calendar(object):
 		log.debug("%-10.10s = %s", 'day', day)
 		log.debug("%-10.10s = %s", 'month', month)
 		log.debug("%-10.10s = %s", 'year', year)
-		self.setcalendar(day, month, year)
+		#self.setcalendar(day, month, year)
+		self.day = day
+		self.month = month
+		self.year = year
+		
+	@property
+	def day(self):
+		return self.__day
+		
+	@day.setter
+	def day(self, day):
+		if Calendar.__validday(day):
+			self.__day = day
+			log.debug("%-15.15s = %s", 'set __day', self.__day)
+		else:
+			raise TypeError("1 <= day <=31")
+	
+	@property
+	def month(self):
+		return self.__month
+		
+	@month.setter
+	def month(self, month):
+		if Calendar.__validmonth(month):
+			self.__month = month
+			log.debug("%-15.15s = %s", 'set __month', self.__month)
+		else:
+			raise TypeError("1 <= month <=12")
+	
+	@property
+	def year(self):
+		return self.__year
+		
+	@year.setter
+	def year(self, year):
+		if Calendar.__validyear(year):
+			self.__year = year
+			log.debug("%-15.15s = %s", 'set __year', self.__year)
+		else:
+			raise TypeError("year must be 4 digits int")
+	
+	
 		
 	def setcalendar(self, day, month, year):
 		"""
@@ -117,16 +165,16 @@ class Calendar(object):
 if __name__ == "__main__":
 	try:
 		c = Calendar( 1, "2", 3000 )
-	except:
-		pass
+	except Exception as e:
+		log.error(e)
 	try:
 		c = Calendar( 1, 2, 999)
-	except:
-		pass
+	except Exception as e:
+		log.error(e)
 	try:
 		c = Calendar( 1, 2, 3000 )
-	except:
-		pass
+	except Exception as e:
+		log.error(e)
 	
 	c = Calendar( 31, 12, 3000 )
 	c.advance()
