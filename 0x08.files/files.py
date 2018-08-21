@@ -7,7 +7,8 @@ import logging
 logging.basicConfig(
 	level=logging.DEBUG,
 	format="%(asctime)s %(module)-15s %(levelname)-10s : %(message)s",
-	datefmt='%Y/%m/%d %H:%M:%S'
+	datefmt	= '%Y/%m/%d %H:%M:%S',
+	stream = sys.stdout
 	)
 #
 #	get a logger

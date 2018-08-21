@@ -12,7 +12,8 @@ logging.basicConfig(
     level=logging.DEBUG,
     #format="%(asctime)s:%(levelname)s:%(name)s:%(message)s",
     format="[%(asctime)s][%(module)s][%(name)s][%(levelname)-6s] - %(message)s",
-	datefmt='%Y/%m/%d|%H:%M:%S'
+	datefmt	= '%Y/%m/%d %H:%M:%S',
+	stream = sys.stdout
     )
 
 log=logging.getLogger("main")

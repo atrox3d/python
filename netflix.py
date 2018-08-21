@@ -4,7 +4,8 @@ import logging, re
 logging.basicConfig(
 	level=logging.INFO,
 	format="%(asctime)s | %(module)s | %(levelname)-" + str(len("CRITICAL")) + "s | %(message)s",
-	datefmt='%Y/%m/%d %H:%M:%S'
+	datefmt	= '%Y/%m/%d %H:%M:%S',
+	stream = sys.stdout
 	)
 log = logging.getLogger(__name__) 
 #

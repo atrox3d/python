@@ -11,7 +11,8 @@ logging.basicConfig(
 				"%(levelname)-" + 
 					str(len("CRITICAL")) + "s | " + 
 				"%(message)s",
-	datefmt	= '%Y/%m/%d %H:%M:%S'
+	datefmt	= '%Y/%m/%d %H:%M:%S',
+	stream = sys.stdout
 	) #
 log=logging.getLogger(__name__)
 #
