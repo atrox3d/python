@@ -20,9 +20,14 @@ logging.basicConfig(
 log=logging.getLogger(__name__)
 
 if __name__ == "__main__":
+	#
+	#	iterate over argv list
+	#
 	for arg in sys.argv:
 		log.info(arg)
-		
+	#
+	#	loop over argv list by index
+	#
 	for i in range(len(sys.argv)):
 		if i == 0:
 			log.info("script name : %s", sys.argv[i])
