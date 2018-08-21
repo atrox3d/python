@@ -20,9 +20,41 @@ logging.basicConfig(
 log=logging.getLogger(__name__)
 
 if __name__ == "__main__":
-	for stream in [ sys.stdin, sys.stdout, sys.stderr ]:
+	save_stdout = sys.stdout
+	#
+	#	loop over standard streams
+	#
+	for stream in [ sys.stdin, sys.stdout, sys.stderr, save_stdout ]:
 		log.info("stream name: %s", stream.name)
 		log.info("stream     : %s", stream)
-		#for item in dir(stream):
-		#	log.info("dir stream : %s", item)
-		
+		#
+		#	will fail on stdin
+		#
+		try:
+			stream.write("hello from %s \n" % stream.name)
+		except Exception as e:
+			log.error(e)
+	
+	log.info("save_stdout is sys.stdout : %s", save_stdout is sys.stdout)
+	log.info("save_stdout == sys.stdout : %s", save_stdout == sys.stdout)
+	#
+	#	use first argument if provided or default if not
+	#
+	outputfile = sys.argv[1] if len(sys.argv) > 1 else "default.txt"
+	
+	try:
+		sys.stdout = open(outputfile, 'w')
+		print("theese should go to file %s"    % outputfile)
+		print("save_stdout is sys.stdout : %s" % (save_stdout is sys.stdout))
+		print("save_stdout == sys.stdout : %s" % (save_stdout == sys.stdout))
+		sys.stdout.close()
+	except Exception as e:
+		log.error(e)
+	
+	sys.stdout = save_stdout
+	print("theese should go to file stdout")
+	print("save_stdout is sys.stdout : %s" % (save_stdout is sys.stdout))
+	print("save_stdout == sys.stdout : %s" % (save_stdout == sys.stdout))
+	
+	
+	
