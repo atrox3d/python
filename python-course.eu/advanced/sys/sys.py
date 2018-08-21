@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-class simulating a calendar
+
 """
 
 import logging, sys
