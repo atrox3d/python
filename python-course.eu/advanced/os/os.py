@@ -6,8 +6,8 @@
 import logging, os, sys
 #
 logging.basicConfig(
-	level	= 	logging.DEBUG,
-	#level	= 	logging.INFO,
+	#level	= 	logging.DEBUG,
+	level	= 	logging.INFO,
 	format	= 	#"%(asctime)s | " + 
 				#"%(module)-15.15s | " + 
 				#"%(name)-10s:" +
@@ -53,3 +53,47 @@ if __name__ == "__main__":
 				log.info(entry.rstrip())
 		except Exception as e:
 			log.error(e)
+	#
+	#	let's work with output
+	#
+	command = 'ls -la ~'
+	log.info('--------------------------------------------------------------')
+	log.info(command)
+	log.info('--------------------------------------------------------------')
+	try:
+		process = os.popen(command)
+		lines = process.readlines()
+		for entry  in lines:
+			#
+			#	split each line at whitespace
+			#
+			listfields = entry.split()
+			log.debug(listfields)
+			try:
+				#
+				#	try the normal ls -l format
+				#	*extra captures extra fields
+				#
+				attributes, number, user, group, size, month, day, time, name, *extra = listfields
+				#	dir
+				if attributes.startswith("d"):
+					log.info("DIR  %s/", name)
+				# file
+				elif attributes.startswith("-"):
+					log.info("FILE %s", name)
+				# link
+				elif attributes.startswith("l"):
+					log.info("LINK %s", name)
+				# dk/dc
+				else:
+					log.info("???? %s", name)
+			except Exception as e:
+				#
+				#	usually total xxx
+				#
+				log.error(e)
+				log.error(listfields)
+	except Exception as e:
+		log.error(e)
+		
+	
