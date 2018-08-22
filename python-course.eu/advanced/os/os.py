@@ -3,7 +3,7 @@
 
 """
 
-import logging, os
+import logging, os, sys
 #
 logging.basicConfig(
 	level	= 	logging.DEBUG,
@@ -24,4 +24,32 @@ format     = "sys.%-{0}.{0}s = %s".format(30)
 subformat  = "	sys.%-{0}.{0}s = %s".format(30)
 
 if __name__ == "__main__":
-	pass
+	#
+	#	let's try some ls variant
+	#
+	for command in  [ 
+						'ls', 
+						'ls *',				# globbing
+						'ls ~', 
+						'ls -l', 
+						'ls -l ~', 
+						'ls -l $HOME', 		# environment expansion
+						'echo $(ls  ~)', 	# command substitution/subshell
+						'env',
+					]:
+		#
+		#	log the command being executed
+		#
+		log.info('--------------------------------------------------------------')
+		log.info(command)
+		log.info('--------------------------------------------------------------')
+		#
+		#	capture command output
+		#
+		try:
+			process = os.popen(command)
+			lines = process.readlines()
+			for entry  in lines:
+				log.info(entry.rstrip())
+		except Exception as e:
+			log.error(e)
