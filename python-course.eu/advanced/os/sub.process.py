@@ -20,8 +20,9 @@ logging.basicConfig(
 	) #
 log=logging.getLogger(__name__)
 
-format     = "%-{0}.{0}s = %s".format(30)
-subformat  = "	%-{0}.{0}s = %s".format(30)
+width		= 20
+format		= "%-{0}.{0}s = %s".format(width)
+subformat 	= "	%-{0}.{0}s = %s".format(width)
 
 if __name__ == "__main__":
 	#
@@ -29,7 +30,7 @@ if __name__ == "__main__":
 	#
 	for command in  [ 
 						'ls', 
-						#'ls *',				# globbing
+						'ls *',				# globbing
 						#'ls ~', 
 						#'ls -l', 
 						#'ls -l ~', 
@@ -49,7 +50,14 @@ if __name__ == "__main__":
 		try:
 			process = subprocess.Popen(command, stdout = subprocess.PIPE)
 			process.wait()
-			log.info(format, 'returncode', process.returncode)
+			
+			log.info(format, 'process.returncode', process.returncode)
+			log.info(format, 'process.stdin', process.stdin)
+			log.info(format, 'process.stdout', process.stdout)
+			log.info(format, 'process.stderr', process.stderr)
+			
+			for line in process.stdout:
+				log.info(line.decode().rstrip())
 			#for item in dir(process):
 			#	print(item)
 			#lines = process.readlines()
