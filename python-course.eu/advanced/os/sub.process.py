@@ -21,52 +21,65 @@ logging.basicConfig(
 log=logging.getLogger(__name__)
 
 width		= 20
-format		= "%-{0}.{0}s = %s".format(width)
+format		= "[shellmode:%s] %-{0}.{0}s = %s".format(width)
 subformat 	= "	%-{0}.{0}s = %s".format(width)
 
 if __name__ == "__main__":
-	#
-	#	let's try some ls variant
-	#
-	for command in  [ 
-						'ls', 
-						'ls *',				# globbing
-						#'ls ~', 
-						#'ls -l', 
-						#'ls -l ~', 
-						#'ls -l $HOME', 		# environment expansion
-						#'echo $(ls  ~)', 	# command substitution/subshell
-						#'env',
-					]:
+	for shellmode in [False, True]:
 		#
-		#	log the command being executed
+		#	let's try some ls variant
 		#
-		log.info('--------------------------------------------------------------')
-		log.info(command)
-		log.info('--------------------------------------------------------------')
-		#
-		#	capture command output
-		#
-		try:
-			process = subprocess.Popen(command, stdout = subprocess.PIPE)
-			process.wait()
-			
-			log.info(format, 'process.returncode', process.returncode)
-			log.info(format, 'process.stdin', process.stdin)
-			log.info(format, 'process.stdout', process.stdout)
-			log.info(format, 'process.stderr', process.stderr)
-			
-			for line in process.stdout:
-				log.info(line.decode().rstrip())
-			#for item in dir(process):
-			#	print(item)
-			#lines = process.readlines()
-			#for line  in lines:
-			#	log.info(line.rstrip())
-		except Exception as e:
-			log.error(e)
+		for command in  [ 
+							'ls', 
+							'ls *',				
+							['ls', '*'],		
+							'ls ~', 			
+							['ls', '~'],		
+							'ls -l',			
+							['ls', '-l'],		
+							['ls', '-l ~'],		
+							['ls', '-l', '~'],	
+							'ls -l $HOME', 		
+							['ls', '-l', '$HOME'], 
+							'echo $(ls  ~)', 	
+							'env',				
+						]:
+			#
+			#	log the command being executed
+			#
+			log.info('--------------------------------------------------------------')
+			log.info(format, shellmode, 'command', command)
+			log.info('--------------------------------------------------------------')
+			#
+			#	capture command output
+			#
+			try:
+				process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = shellmode)
+				process.wait()
+				
+				log.info(format, shellmode, 'process.returncode', process.returncode)
+				
+				#if process.returncode == 0:
+				#log.info(format, 'process.stdin', process.stdin)
+				log.info(format, shellmode, 'process.stdout', process.stdout)
+				#else:
+				log.info(format, shellmode, 'process.stderr', process.stderr)
+				
+				for line in process.stdout:
+					log.info(line.decode().rstrip())
+				
+				for line in process.stderr:
+					log.error(line.decode().rstrip())
+			except Exception as e:
+				log.fatal(e)
 			
 	sys.exit(0)
+
+
+
+
+
+
 	#
 	#	let's work with output
 	#
