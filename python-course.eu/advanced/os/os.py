@@ -49,8 +49,8 @@ if __name__ == "__main__":
 		try:
 			process = os.popen(command)
 			lines = process.readlines()
-			for entry  in lines:
-				log.info(entry.rstrip())
+			for line  in lines:
+				log.info(line.rstrip())
 		except Exception as e:
 			log.error(e)
 	#
@@ -63,11 +63,11 @@ if __name__ == "__main__":
 	try:
 		process = os.popen(command)
 		lines = process.readlines()
-		for entry  in lines:
+		for line  in lines:
 			#
 			#	split each line at whitespace
 			#
-			listfields = entry.split()
+			listfields = line.split()
 			log.debug(listfields)
 			try:
 				#
