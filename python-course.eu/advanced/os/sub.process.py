@@ -57,77 +57,37 @@ if __name__ == "__main__":
             log.info('--------------------------------------------------------------')
             log.info(format, shellmode, 'command', command)
             log.info('--------------------------------------------------------------')
-            #
-            #   capture command output
-            #
+
             try:
-                process = subprocess.Popen(command, stdout = subprocess.PIPE, stderr = subprocess.PIPE, shell = shellmode)
+				#
+				#   create process
+				#
+                process = subprocess.Popen(
+												command, 						#	command to be executed
+												stdout = subprocess.PIPE,       #	open pipe to process stdout
+												stderr = subprocess.PIPE,       #	open pipe to stderr
+												shell = shellmode               #	shellmode flag
+											)
+				#
+				#	wait for command to complete
+				#
                 process.wait()
-                
+                #
+				#	check process object properties
+				#
                 log.info(format, shellmode, 'process.returncode', process.returncode)
-                
-                #if process.returncode == 0:
-                #log.info(format, 'process.stdin', process.stdin)
                 log.info(format, shellmode, 'process.stdout', process.stdout)
-                #else:
                 log.info(format, shellmode, 'process.stderr', process.stderr)
-                
+                #
+				#	log process stdout
+				#
                 for line in process.stdout:
                     log.info(line.decode().rstrip())
-                
+                #
+				#	log process stderr
+				#
                 for line in process.stderr:
                     log.error(line.decode().rstrip())
+					
             except Exception as e:
                 log.fatal(e)
-            
-    sys.exit(0)
-
-
-
-
-
-
-    #
-    #   let's work with output
-    #
-    command = 'ls -la ~'
-    log.info('--------------------------------------------------------------')
-    log.info(command)
-    log.info('--------------------------------------------------------------')
-    try:
-        process = os.popen(command)
-        lines = process.readlines()
-        for entry  in lines:
-            #
-            #   split each line at whitespace
-            #
-            listfields = entry.split()
-            log.debug(listfields)
-            try:
-                #
-                #   try the normal ls -l format
-                #   *extra captures extra fields
-                #
-                attributes, number, user, group, size, month, day, time, name, *extra = listfields
-                #   dir
-                if attributes.startswith("d"):
-                    log.info("DIR  %s/", name)
-                # file
-                elif attributes.startswith("-"):
-                    log.info("FILE %s", name)
-                # link
-                elif attributes.startswith("l"):
-                    log.info("LINK %s", name)
-                # dk/dc
-                else:
-                    log.info("???? %s", name)
-            except Exception as e:
-                #
-                #   usually total xxx
-                #
-                log.error(e)
-                log.error(listfields)
-    except Exception as e:
-        log.error(e)
-        
-    
