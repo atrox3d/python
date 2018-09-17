@@ -1,7 +1,8 @@
 #!env python3
 from xml.dom import minidom
 
-mydoc = minidom.parse('items.xml')
+datasource = open('items.xml')
+mydoc = minidom.parse(datasource)
 
 items = mydoc.getElementsByTagName('item')
 
