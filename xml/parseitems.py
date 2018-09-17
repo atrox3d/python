@@ -1,7 +1,11 @@
 #!env python3
 from xml.dom import minidom
+import sys
 
-datasource = open('items.xml')
+
+datafile = sys.argv[1] if len(sys.argv) > 1 else 'items.xml'
+
+datasource = open(datafile)
 mydoc = minidom.parse(datasource)
 
 items = mydoc.getElementsByTagName('item')
