@@ -16,3 +16,18 @@ root = tree.getroot()
 print('item #2 attribute')
 print(root[0][1].attrib)
 
+# all item attributes
+print('\nall attributes')
+for elem in root:
+	for subelem in elem:
+		print(subelem.attrib)
+
+# one specific item's data
+print('\nitem #2 data')
+print(root[0][1].text)
+
+# all item data
+for elem in root:
+	for subelem in elem:
+		print(subelem.text)
+		
