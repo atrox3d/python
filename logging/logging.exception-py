@@ -5,6 +5,7 @@
 import logging
 
 # the default level is warning so only the first line will be printed
+logging.basicConfig(level=logging.INFO)
 logging.info('START')
 logging.warning('watch out for the next exception')
 try:
