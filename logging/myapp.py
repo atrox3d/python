@@ -6,7 +6,7 @@ import logging
 import mylib
 
 def main():
-	logging.basicConfig(filename='myapp.log', level=logging.INFO)
+	logging.basicConfig(filename='myapp.log', filemode='w', level=logging.INFO)
 	logging.info('start')
 	mylib.dosomething()
 	logging.info('end')
