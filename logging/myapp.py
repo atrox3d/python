@@ -13,4 +13,8 @@ def main():
 
 if __name__ == "__main__":
 	main()
+	
+	for line in open('myapp.log'):
+		print(line.rstrip())
+
 

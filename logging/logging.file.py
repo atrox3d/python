@@ -9,3 +9,5 @@ logging.debug("this message should go to the log file")
 logging.info('so should this')
 logging.warning('and this too')
 
+for line in open('example.log'):
+	print(line.rstrip())
