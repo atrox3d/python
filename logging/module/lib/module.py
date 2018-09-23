@@ -7,12 +7,12 @@ import logging
 # create logger
 modulelogger = logging.getLogger('main.module')
 
-modulelogger.info		(	'loading %s',	__name__)
-modulelogger.debug		(	'debug %s',		__name__)
-modulelogger.info		(	'info %s',		__name__)
-modulelogger.warn		(	'warn %s',		__name__)
-modulelogger.error		(	'error %s',		__name__)
-modulelogger.critical	(	'critical %s',	__name__)
+modulelogger.info		(	'%s::loading',	__name__)
+modulelogger.debug		(	'%s::debug',	__name__)
+modulelogger.info		(	'%s::info',		__name__)
+modulelogger.warn		(	'%s::warn',		__name__)
+modulelogger.error		(	'%s::error',	__name__)
+modulelogger.critical	(	'%s::critical',	__name__)
 
 class	Moduleclass:
 	def __init__(self):
