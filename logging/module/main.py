@@ -5,6 +5,11 @@
 import logging, sys
 
 # create logger
+rootlogger = logging.getLogger('main')
+rootlogger.setLevel(logging.DEBUG)
+
+
+# create logger
 logger = logging.getLogger('main')
 logger.setLevel(logging.DEBUG)
 
