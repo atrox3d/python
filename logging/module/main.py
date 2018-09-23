@@ -23,7 +23,7 @@ ch.setLevel(logging.ERROR)
 
 # create formatter
 mainFileFormatter = logging.Formatter(
-									  '[MAIN:file   ] '
+									  '[mainFileFormatter] '
 									+ '%(asctime)s'
 									+ ' - '
 									+ '%(name)s'		# simple_example
@@ -35,7 +35,7 @@ mainFileFormatter = logging.Formatter(
 
 # create formatter
 mainConsoleFormatter = logging.Formatter(
-									  '[MAIN:console] '
+									  '[mainConsoleFormatter] '
 									+ '%(asctime)s'
 									+ ' - '
 									+ '%(name)s'		# simple_example
@@ -53,7 +53,8 @@ fh.setFormatter(mainFileFormatter)
 mainlogger.addHandler(ch)
 mainlogger.addHandler(fh)
 
-
+mainlogger.debug("import lib.module as m")
+rootlogger.debug("import lib.module as m")
 import lib.module as m
 
 rootlogger.debug	('root::debug')
