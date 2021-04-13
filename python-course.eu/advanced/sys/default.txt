@@ -1,3 +1,0 @@
-theese should go to file default.txt
-save_stdout is sys.stdout : False
-save_stdout == sys.stdout : False

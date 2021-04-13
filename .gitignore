@@ -1,4 +1,2 @@
-__pycache__/
-clipboard.txt
-/private
-
+/venv/
+__pycache__
